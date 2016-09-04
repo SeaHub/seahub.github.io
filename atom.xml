@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Words Of Life</title>
+  <subtitle>Record the things appearing in my life</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2016-08-02T05:41:11.000Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>Seahub</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>test</title>
+    <link href="http://yoursite.com/2016/08/02/test/"/>
+    <id>http://yoursite.com/2016/08/02/test/</id>
+    <published>2016-08-02T05:40:23.000Z</published>
+    <updated>2016-08-02T05:41:11.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="随笔" scheme="http://yoursite.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>test</title>
+    <link href="http://yoursite.com/2016/08/02/test2/"/>
+    <id>http://yoursite.com/2016/08/02/test2/</id>
+    <published>2016-08-02T05:40:23.000Z</published>
+    <updated>2016-08-02T05:41:11.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="随笔" scheme="http://yoursite.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>test</title>
+    <link href="http://yoursite.com/2016/08/02/test3/"/>
+    <id>http://yoursite.com/2016/08/02/test3/</id>
+    <published>2016-08-02T05:40:23.000Z</published>
+    <updated>2016-08-02T05:41:11.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="随笔" scheme="http://yoursite.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+  </entry>
+  
+</feed>
