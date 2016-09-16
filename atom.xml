@@ -53,7 +53,7 @@
     <content type="html"><![CDATA[<ul>
 <li>A post use for testing</li>
 </ul>
-
+<img src="/2016/08/02/test22/2016/08/02/test22/test.png" alt="This is an example image" title="This is an example image">
 ]]></content>
     
     <summary type="html">
@@ -61,8 +61,7 @@
       &lt;ul&gt;
 &lt;li&gt;A post use for testing&lt;/li&gt;
 &lt;/ul&gt;
-
-
+&lt;img src=&quot;/2016/08/02/test22/2016/08/02/test22/test.png&quot; alt=&quot;This is an example image&quot; title=&quot;Th
     
     </summary>
     
