@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-16T12:09:37.000Z</updated>
+  <updated>2016-09-16T12:20:17.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,56 +16,26 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>test</title>
-    <link href="http://yoursite.com/2016/08/02/test/"/>
-    <id>http://yoursite.com/2016/08/02/test/</id>
-    <published>2016-08-02T05:40:23.000Z</published>
-    <updated>2016-09-16T12:09:37.000Z</updated>
+    <title>hiBlog</title>
+    <link href="http://yoursite.com/2016/09/16/hiBlog/"/>
+    <id>http://yoursite.com/2016/09/16/hiBlog/</id>
+    <published>2016-09-16T12:19:43.000Z</published>
+    <updated>2016-09-16T12:20:17.000Z</updated>
     
     <content type="html"><![CDATA[<ul>
-<li>A post use for testing</li>
+<li>A post use for saying Hi to My Blog</li>
 </ul>
-
+<img src="/2016/09/16/hiBlog/2016/09/16/hiBlog/test.png" alt="This is an example image" title="This is an example image">
 ]]></content>
     
     <summary type="html">
     
       &lt;ul&gt;
-&lt;li&gt;A post use for testing&lt;/li&gt;
+&lt;li&gt;A post use for saying Hi to My Blog&lt;/li&gt;
 &lt;/ul&gt;
-
-
+&lt;img src=&quot;/2016/09/16/hiBlog/2016/09/16/hiBlog/test.png&quot; alt=&quot;This is an example ima
     
     </summary>
-    
-      <category term="Test" scheme="http://yoursite.com/categories/Test/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>test</title>
-    <link href="http://yoursite.com/2016/08/02/test22/"/>
-    <id>http://yoursite.com/2016/08/02/test22/</id>
-    <published>2016-08-02T05:40:23.000Z</published>
-    <updated>2016-09-16T12:09:37.000Z</updated>
-    
-    <content type="html"><![CDATA[<ul>
-<li>A post use for testing</li>
-</ul>
-<img src="/2016/08/02/test22/2016/08/02/test22/test.png" alt="This is an example image" title="This is an example image">
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;ul&gt;
-&lt;li&gt;A post use for testing&lt;/li&gt;
-&lt;/ul&gt;
-&lt;img src=&quot;/2016/08/02/test22/2016/08/02/test22/test.png&quot; alt=&quot;This is an example image&quot; title=&quot;Th
-    
-    </summary>
-    
-      <category term="Test" scheme="http://yoursite.com/categories/Test/"/>
     
     
   </entry>
