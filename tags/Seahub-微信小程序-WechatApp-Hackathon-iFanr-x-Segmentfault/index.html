@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>在校园网上使用IPv6 | Words Of Life</title>
+  <title>Tag: Seahub, 微信小程序, WechatApp, Hackathon, iFanr x Segmentfault | Words Of Life</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -86,7 +86,7 @@
 </head>
 
 <!--
-<body class="post-template">
+<body class="home-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -187,168 +187,69 @@
         <!-- ============================ Header & Logo bar =========================== -->
 
 
-      
-<section id="intro">
-    <div class="container">
-        <div class="row col-md-offset-2">
-            <div class="col-md-8">
-    			<span class="post-meta">
-      <time datetime="2016-09-25T14:48:13.000Z" itemprop="datePublished">
-          2016-09-25
-      </time>
-    
-    
-    | 
-    <a href='/tags/Seahub-SCAU-IPv6-校园网-教育网/'>Seahub, SCAU, IPv6, 校园网, 教育网</a>
-    
-    
-</span>
-                <h1>在校园网上使用IPv6</h1>
+      <!-- ============================ Hero Image =========================== -->
+
+<section id="hero" class="scrollme">
+    <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                    <div>
+                        
+                        <h2></h2>
+                        <p></p>
+                        
+                        <h2></h2>
+                        <p></p>
+                        
+
+                    </div>
+                </div>
             </div>
+            <!-- // .col-md-12 -->
         </div>
-        <div class="col-md-8 col-md-offset-2">
-      		<ul>
-<li><p>前言</p>
-<ul>
-<li>之前一直有听闻校园网能够使用IPv6，奈何不是没时间折腾，就是忘了这件事。最近听周边的朋友研究IPv6的使用，于是掺和折腾了一把。一开始掉进了一个坑，以为有IPv6的地址便可，后来发现还要一些小配置。希望借此文整理一下思路，同时也供后人稍作参考，减少掉坑率。</li>
-</ul>
-</li>
-<li><p>思路</p>
-<ol>
-<li><p>获取IPv6地址</p>
-</li>
-<li><p>设置IPv6 DNS</p>
-</li>
-<li><p>修改hosts文件的域名-地址映射关系，使得访问域名时优先访问IPv6的地址，否则我们每次访问网站的时候都需要记着该网站IPv6的地址</p>
-<blockquote>
-<p>hosts知识补充：Hosts 文件本来是用来提高解析效率。在进行 DNS 请求以前，系统会先检查自己的 Hosts 文件中是否有这个地址映射关系，如果有则调用这个 IP 地址映射，如果没有再向已知的 DNS 服务器提出域名解析。也就是说 Hosts 的请求级别比 DNS 高。当你的 Hosts 文件里面有对应的 IP 时，它就会直接访问那个 IP，而不用通过 DNS。</p>
-<p>作者：Wildog<br>来源：<a href="https://www.zhihu.com/question/19782572/answer/12946786" target="_blank" rel="external">知乎 - 修改 hosts 文件的原理是什么?</a></p>
-</blockquote>
-</li>
-</ol>
-</li>
-<li><p>测试环境</p>
-<ul>
-<li>macOS Sierra 10.12</li>
-<li>SCAU Education Net</li>
-<li>极路由固件版本 1.0.7.13499s</li>
-</ul>
-</li>
-<li><p>实操</p>
-<ol>
-<li><p>获取IPv6地址</p>
-<ol>
-<li><p>登录极路由后台, 后台默认密码: admin/wifi密码</p>
-<ul>
-<li><p><a href="http://www.4006024680.com/" target="_blank" rel="external">极路由后台登录</a></p>
-</li>
-<li><p>点击智能插件 - 安装插件 - 教育网IPv6</p>
-<img src="/2016/09/25/在校园网上使用IPv6/1.png" alt="IPv6 Plugin Installing" title="IPv6 Plugin Installing">
-</li>
-</ul>
-</li>
-<li><p>配置插件 - 更改接入方式为IPv6中继（具体视不同高校进行不同设置）</p>
-<img src="/2016/09/25/在校园网上使用IPv6/2.png" alt="IPv6 Plugin Settings" title="IPv6 Plugin Settings">
-</li>
-<li><p>重启路由器</p>
-</li>
-<li><p>重新进入路由器后台 - 点击系统设置 - 查看是否成功获取了IPv6地址</p>
-<img src="/2016/09/25/在校园网上使用IPv6/3.png" alt="IPv6 Address" title="IPv6 Address">
-</li>
-</ol>
-</li>
-<li><p>设置IPv6 DNS</p>
-<ol>
-<li>更改本机首选DNS为谷歌IPv6 DNS<ul>
-<li>谷歌IPv6 DNS1：2001:4860:4860::8888</li>
-<li>谷歌IPv6 DNS2：2001:4860:4860::8844</li>
-<li>DNS修改方式<ul>
-<li><a href="http://jingyan.baidu.com/article/fc07f9891f626712ffe519cf.html" target="_blank" rel="external">macOS</a></li>
-<li><a href="http://jingyan.baidu.com/article/f71d60375584591ab641d13c.html" target="_blank" rel="external">windows</a></li>
-<li><a href="http://jingyan.baidu.com/article/870c6fc32c028eb03fe4be30.html" target="_blank" rel="external">linux</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>登录<a href="http://test-ipv6.com/" target="_blank" rel="external">Test-IPv6</a>网站进行测试，是否成功进行了配置</p>
-<ul>
-<li><p>若得到的不是类似下图的页面，请检查IPv6地址与IPv6 DNS是否成功设置</p>
-<img src="/2016/09/25/在校园网上使用IPv6/4.png" alt="IPv6 Testing" title="IPv6 Testing">
-</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p>更改hosts</p>
-<ol>
-<li><p>上网获取hosts（这里个人推荐：<a href="https://serve.netsh.org/pub/ipv6-hosts/" target="_blank" rel="external">奶齿NetSh</a>，选择所需要的IPv6地址后即可下载)</p>
-</li>
-<li><p>经常使用百度云盘的用户，建议在下载的hosts文件中，再增加以下hosts，以IPv6的方式逃离限速百度云的魔爪</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#Baiducloud</div><div class="line">2400:da00::dbf:0:6666 p.baidupcs.com</div><div class="line">2400:da00::dbf:0:6666 nj.baidupcs.com</div><div class="line">2400:da00::dbf:0:6666 qd.baidupcs.com</div><div class="line">2400:da00::dbf:0:6666 cdn.baidupcs.com</div><div class="line">2400:da00::dbf:0:6666 hot.baidupcs.com</div><div class="line">2400:da00::dbf:0:6666 www.baidupcs.com</div><div class="line">2400:da00::dbf:0:6666 hot.cdn.baidupcs.com</div><div class="line">2400:da00::dbf:0:6666 d.pcs.baidu.com</div><div class="line">#END baiducloud</div></pre></td></tr></table></figure>
-</li>
-<li><p>登录<a href="www.google.com">谷歌</a>，测试是否成功配置</p>
-</li>
-</ol>
-</li>
-<li><p>Enjoy!</p>
-<ul>
-<li><p>下图为SCAU IPv6的平均网速</p>
-<img src="/2016/09/25/在校园网上使用IPv6/5.png" alt="IPv6 Showing" title="IPv6 Showing">
-</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p>后记</p>
-<ul>
-<li><p>在使用了IPv6后，第一个感觉就是苹果的服务明显快了。以前通过shadowsocks/VPN/8.8.8.8，延迟感觉还是颇高，下载速率也普遍维持在500KB/s左右。用了IPv6后，平均下载速度大概为1.5M/s，速率提升之大实在令人感慨。</p>
-</li>
-<li><p>本文中提及的方法都是本人所采用的方法，只具有参考意义。大家也可以通过其他方法获得IPv6的地址（比如SCAU还能通过网线直连电脑的方式获得IPv6地址）。本文，仅作参考。</p>
-</li>
-</ul>
-<hr>
-<ul>
-<li>Last Edited：2016.9.25</li>
-<li>Author：@Seahub</li>
-<li>Please <a href="Seahubc@qq.com">contact me</a> if you want to share this Article, 3Q~</li>
-</ul>
-</li>
-</ul>
-
-            <div class="clearfix"></div>
-            <hr class="nogutter">
-        </div>
-        <nav class="pagination" role="pagination">
-    
-    <a class="pull-left" href="/2016/10/09/我所理解的小程序/" style="float: left;">
-        ← 我所理解的小程序
-    </a>
-    
-    
-    <a class="pull-right" href="/2016/09/17/HelloMyBlog/">
-        Hello, My Blog →
-    </a>
-    
-</nav>
-
-        <div class="duoshuo">
-<div class="ds-thread" data-thread-key="2016/09/25/在校园网上使用IPv6/" data-title="在校园网上使用IPv6" data-url="http://yoursite.com/2016/09/25/在校园网上使用IPv6/"></div>
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"duoshuo_name"};
-(function() {
-	var ds = document.createElement('script');
-	ds.type = 'text/javascript';ds.async = true;
-	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-	ds.charset = 'UTF-8';
-	(document.getElementsByTagName('head')[0] 
-	 || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
-</div>
+        <div class="herofade beige-dk"></div>
     </div>
 </section>
 
+<!-- Height spacing helper -->
+<div class="heightblock"></div>
+<!-- // End height spacing helper -->
 
+<!-- ============================ END Hero Image =========================== -->
+
+
+
+
+<section id="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row boxes">
+                    
+                    
+                        
+                        
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
+                            
+                              <h4 class="title"><a href="/2016/10/09/我所理解的小程序/">我所理解的小程序</a></h4>
+                            
+                            <p><time datetime="2016-10-09T00:33:54.000Z"><a href="/2016/10/09/我所理解的小程序/">2016-10-09</a></time></p>
+                        </div>
+                    
+                </div>
+            </div>    
+        </div>
+    </div>
+</section> 
+
+<section id="statement">
+    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
+        <div class="row">
+            <p>末尾放句话，好像比较合适。</p>
+        </div>
+    </div>
+</section>
       
 <!-- ============================ Footer =========================== -->
 
