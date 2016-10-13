@@ -485,7 +485,7 @@
     <link href="http://yoursite.com/2016/09/17/HelloMyBlog/"/>
     <id>http://yoursite.com/2016/09/17/HelloMyBlog/</id>
     <published>2016-09-17T12:19:43.000Z</published>
-    <updated>2016-10-13T04:36:07.000Z</updated>
+    <updated>2016-10-13T06:56:59.000Z</updated>
     
     <content type="html"><![CDATA[<ul>
 <li><p>摘要：开博客的原因以及一些个人感触</p>
@@ -499,6 +499,12 @@
 </li>
 <li><p>博客相关</p>
 <ul>
+<li>博客内容均为原创，若文章中有相关的参考资料，将会以引用方式标注参考内容的作者、并标明原作者以及原链接，以引导读者进一步阅读更多相关资料</li>
+<li>博客每篇文章最底部会有一个”Last Edited”表示文章的最后修订状态<ul>
+<li>修订一般为内容的修正，代码风格的更新等</li>
+<li>特别重要的修订将会在文章标题标注 / 以补充文章的形式出现</li>
+</ul>
+</li>
 <li>作者：@Seahub</li>
 <li>QQEmail：Seahubc@qq.com</li>
 <li>Gmail：Seahubc@gmail.com</li>
@@ -507,7 +513,7 @@
 </ul>
 <hr>
 <ul>
-<li>Last Edited：2016.9.17</li>
+<li>Last Edited：2016.10.13</li>
 <li>Author：@Seahub</li>
 <li>Please <a href="Seahubc@qq.com">contact me</a> if you want to share this Article, 3Q~</li>
 </ul>
