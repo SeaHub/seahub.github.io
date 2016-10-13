@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>从小实验探C#代码优化 | Words Of Life</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Words Of Life">
+    <meta name="author" content="Seahub">
+    <meta name="description" content="Record the things appearing in my life" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Words Of Life" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="https://github.com/SeaHub/BlogOfComputerNetwork" target="_BLANK" class="animsition-link">BlogOfComputerNetwork</a></li>
+                    
+                        <li><a href="http://v.youku.com/v_show/id_XMTU2MzY1NTczMg==.html" target="_BLANK" class="animsition-link">MooApp</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/C/" class="animsition-link">C#<small>(0)</small></a></li>
+				    
+				    <li><a href="/categories/C-代码优化/" class="animsition-link">C#, 代码优化<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/C-性能优化/" class="animsition-link">C#, 性能优化<small>(0)</small></a></li>
+				    
+				    <li><a href="/categories/小记/" class="animsition-link">小记<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/工具/" class="animsition-link">工具<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/微信小程序/" class="animsition-link">微信小程序<small>(1)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Words Of Life</a></li>
+                            <li class="nolink"><span>Always Be Concentrated.</span></li>
+                            
+                            <li><a href="https://github.com/SeaHub" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            
+                            
+                            
+                            <li class="nolink"><span>Enjoy!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-10-12T14:45:15.000Z" itemprop="datePublished">
+          2016-10-12
+      </time>
+    
+    
+    | 
+    <a href='/tags/Seahub-C-Scau防伪码实验-代码优化/'>Seahub, C#, Scau防伪码实验, 代码优化</a>
+    
+    
+</span>
+                <h1>从小实验探C#代码优化</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<ul>
+<li><p>前言</p>
+<ul>
+<li><p>本文源于一个C#小实验：生成防伪码。与其他以“完成目标”为要求的实验不同，该实验以“性能优化”为要求。实验题目（见下）很简单，简单的数行代码即可实现。而如何让代码达到最佳的性能，即以最短的运行时间运行，成为了我纠结的问题。此处仅以此文记录我的思考过程，望日后有助于同行。</p>
+<blockquote>
+<ul>
+<li>小实验题目：生成防伪码</li>
+</ul>
+<ol>
+<li>防伪码由以下字符组成：0123456789ABCDEFGHJKLMNPQRSTUVWXYZ（数字1和字母I相近、数字0和字母O相近，所以去掉字母I和字母O，全部字母大写）</li>
+<li>在命令行中输入2个参数，分别是：防伪码长度与防伪码个数。例如：在命令行中调用程序为“应用程序.exe 10 10000”指的是防伪码长度为10，生成10000个防伪码。</li>
+<li>输出结果：时间（单位：ms）</li>
+</ol>
+<ul>
+<li>注意</li>
+</ul>
+<ol>
+<li>不需要输出每个防伪码（在调试时输出防伪码可用于检验生成码的正确性，正式输出时只输出一项结果即运行程序所需要的时间）</li>
+<li>防伪码的长度由命令行参数决定</li>
+<li>所生成的防伪码不能重复（按照以上例子，生成了10000个防伪码，这10000个防伪码就肯定不能重复）</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>先贴出公用模板 - 下述其他代码默认嵌套在此模板内执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">// *****************************************************</div><div class="line">// author: @Seahub Seahubc@gmail.com || Seahubc@qq.com</div><div class="line">// 实验一：生成防伪码</div><div class="line">// 防伪码组成元素：0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ</div><div class="line">// input:  防伪码长度 防伪码个数</div><div class="line">// output: 防伪码运行所需时间</div><div class="line">// PS: 防伪码不能重复</div><div class="line">// *****************************************************</div><div class="line">// 测试样例：生成防伪码长度为10，防伪码个数为1,000,000的运算时间</div><div class="line">// 测试环境：Win7 i5-4670T 16GB内存</div><div class="line">// *****************************************************</div><div class="line">using System;</div><div class="line">using System.Collections.Generic;</div><div class="line">using System.Linq;</div><div class="line">using System.Text;</div><div class="line">using System.Threading.Tasks;</div><div class="line">using System.Diagnostics;</div><div class="line">using System.Collections;</div><div class="line"></div><div class="line">namespace SecurityCode</div><div class="line">&#123;</div><div class="line">    class Program</div><div class="line">    &#123;</div><div class="line">        static void Main(string[] args)</div><div class="line">        &#123;</div><div class="line">            // ===================== 固定常量 =====================</div><div class="line">            const String charArr = &quot;0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ&quot;;</div><div class="line"></div><div class="line">            // ===================== 获取参数 =====================</div><div class="line">            int lengthOfSecurityCode = 0;</div><div class="line">            int numberOfSecurityCode = 0;</div><div class="line">            if (args.Length &lt; 2)</div><div class="line">            &#123;</div><div class="line">                // 当args带的参数 &lt; 2时，提示输入两个参数</div><div class="line">                System.Console.WriteLine(&quot;Please input parameter - &quot; +</div><div class="line">                    &quot;lengthOfSecurityCode:&quot;);</div><div class="line">                lengthOfSecurityCode = Convert.ToInt32(Console.ReadLine());</div><div class="line">                System.Console.WriteLine(&quot;Please input parameter - &quot; +</div><div class="line">                    &quot;numberOfSecurityCode:&quot;);</div><div class="line">                numberOfSecurityCode = Convert.ToInt32(Console.ReadLine());</div><div class="line">            &#125; else &#123;</div><div class="line">                lengthOfSecurityCode = int.Parse(args[0]);</div><div class="line">                numberOfSecurityCode = int.Parse(args[1]);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            // ===================== 开始计时 =====================</div><div class="line">            Stopwatch timer = new Stopwatch();</div><div class="line">            timer.Start();</div><div class="line">          	</div><div class="line">          	// ===================== 核心函数 =====================</div><div class="line">          	// toDo - 下述思考过程代码将代替此部分</div><div class="line">          </div><div class="line">            // =================== 停止计时并输出 ==================</div><div class="line">            timer.Stop();</div><div class="line">            double dMilliseconds = timer.Elapsed.TotalMilliseconds;</div><div class="line">            System.Console.WriteLine(&quot;生成个数为：&quot; + numberOfSecurityCode +</div><div class="line">                &quot;，运行时间为：&quot; + dMilliseconds + &quot;s&quot;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>思考过程的第一个实现 - 利用HashSet + StringBuilder 简单实现（下述代码代替公用模板toDO部分）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">// *****************************************************</div><div class="line">// 测试样例：生成防伪码长度为10，防伪码个数为1,000,000的运算时间</div><div class="line">// 测试环境：Win7 i5-4670T 16GB内存</div><div class="line">// 测试结果：826.5098s</div><div class="line">// *****************************************************</div><div class="line">HashSet&lt;String&gt; result = new HashSet&lt;String&gt;();</div><div class="line">Random random = new Random();</div><div class="line">StringBuilder sb = new StringBuilder(lengthOfSecurityCode);</div><div class="line"></div><div class="line">while (result.Count != numberOfSecurityCode)</div><div class="line">&#123;</div><div class="line">	sb.Clear();</div><div class="line">	for (int i = 0; i &lt; lengthOfSecurityCode; ++i)</div><div class="line">	&#123;</div><div class="line">		// 生成一个随机数</div><div class="line">		int idx = random.Next(0, charArr.Length);</div><div class="line">		sb.Append(charArr[idx]);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	result.Add(sb.ToString());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>代码分析</p>
+<ul>
+<li>思路：利用sb去存储字符组成字符串，因为防伪码不能重复，所以将生成防伪码后加入HashSet</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>思考过程的第二个实现 - HashSet + StringBuilder + 少量优化（下述代码代替公用模板toDO部分）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">// *****************************************************</div><div class="line">// 测试样例：生成防伪码长度为10，防伪码个数为1,000,000的运算时间</div><div class="line">// 测试环境：Win7 i5-4670T 16GB内存</div><div class="line">// 测试结果：688.5649ms</div><div class="line">// *****************************************************</div><div class="line">HashSet&lt;String&gt; result = new HashSet&lt;String&gt;();</div><div class="line">Random random = new Random();</div><div class="line">StringBuilder sb = new StringBuilder(lengthOfSecurityCode);</div><div class="line">int charArrlength = charArr.Length;</div><div class="line"></div><div class="line">while (result.Count != numberOfSecurityCode)</div><div class="line">&#123;</div><div class="line">	sb.Length = 0;</div><div class="line">	for (int i = 0; i &lt; lengthOfSecurityCode; ++i)</div><div class="line">	&#123;</div><div class="line">		// 生成一个随机数</div><div class="line">		int idx = random.Next(charArrlength);</div><div class="line">		sb.Append(charArr[idx]);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	result.Add(sb.ToString());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>代码分析</p>
+<ul>
+<li>上述代码我的优化如下，下面的数据采用了控制变量进行测量<ul>
+<li>优化一：使用了<code>charArrlength</code>代替了<code>charArr.Length</code><ul>
+<li>成功优化的原因：避免多次调用</li>
+<li>优化结果：<em>减少 715.5070ms -  688.5649ms  = 26.9421ms</em></li>
+</ul>
+</li>
+<li>优化二：使用了<code>random.Next(charArrlength)</code>代替了<code>random.Next(0, charArrlength)</code><ul>
+<li>成功优化的原因：未知</li>
+<li>优化结果：<em>减少 798.8720ms -  688.5649ms = 110.3071ms</em></li>
+</ul>
+</li>
+<li>优化三：使用了<code>sb.Length = 0</code>代替了<code>sb.clear()</code><ul>
+<li>成功优化的原因：未知</li>
+<li>优化结果：<em>减少 692.9382ms - 688.5649ms = 4.3733ms</em></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>一开始我以为对性能优化最多的应该是优化一。没想到却是偶尔一试的优化二使得时间大幅下降，实在是意料之外。奈何自身水平有限，不知道优化二为何能够如此大幅度降低运行时间，猜想应该是<code>random.Next(0, charArrlength)</code>在每次循环内进行了两次判断（一次判断是否大于等于0，一次判断是否小于charArrlength），而random.Next(charArrlength)在每次循环内只判断了上界，所以效率更高。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>思考过程的第三个实现 - HashSet + 变长字符数组（下述代码代替公用模板toDO部分）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">// *****************************************************</div><div class="line">// 测试样例：生成防伪码长度为10，防伪码个数为1,000,000的运算时间</div><div class="line">// 测试环境：Win7 i5-4670T 16GB内存</div><div class="line">// 测试结果：627.5172ms</div><div class="line">// *****************************************************</div><div class="line">HashSet&lt;String&gt; result = new HashSet&lt;String&gt;();</div><div class="line">Random random = new Random();</div><div class="line">char[] charSb = new char[lengthOfSecurityCode];</div><div class="line">int charArrlength = charArr.Length;</div><div class="line"></div><div class="line">while (result.Count != numberOfSecurityCode)</div><div class="line">&#123;</div><div class="line">	for (int i = 0; i &lt; lengthOfSecurityCode; ++i)</div><div class="line">	&#123;</div><div class="line">		// 生成一个随机数</div><div class="line">		int idx = random.Next(charArrlength);</div><div class="line">		charSb[i] = charArr[idx];</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	result.Add(new String(charSb));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>代码分析</p>
+<ul>
+<li>使用了变长字符数组来代替StringBuilder<ul>
+<li>成功优化的原因：字符数组非对象，减少CLI管理内存的时间损耗以及对象生成时间</li>
+<li>优化结果：<em>减少 688.5649ms - 627.5172ms = 61.0477ms</em></li>
+</ul>
+</li>
+<li>思考过后，还是觉得论性能，原生数组应该比对象更加有优势，因此最终我采用了本方案</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>总结：在内存冗余的计算机时代，这点性能优化显得微不足道。然而，在我看来，偶尔研究一下性能，能够更加有助于我们不断改进代码，写出更加高效精炼的“好代码”，做一个会思考的工程师，而非只是堆代码的码农。</li>
+</ul>
+<hr>
+<ul>
+<li>Last Edited：2016.10.13</li>
+<li>Author：@Seahub</li>
+<li>Please <a href="Seahubc@qq.com">contact me</a> if you want to share this Article, 3Q~</li>
+</ul>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2016/10/09/我所理解的小程序/">
+        我所理解的小程序 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/10/12/从小实验探C#代码性能优化/" data-title="从小实验探C#代码优化" data-url="http://yoursite.com/2016/10/12/从小实验探C#代码性能优化/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"duoshuo_name"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Seahub. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/SeaHub" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    
+                    
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
