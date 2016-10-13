@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-10-13T04:38:25.000Z</updated>
+  <updated>2016-10-13T04:40:59.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/10/12/%E4%BB%8E%E5%B0%8F%E5%AE%9E%E9%AA%8C%E6%8E%A2C#%E4%BB%A3%E7%A0%81%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
     <id>http://yoursite.com/2016/10/12/从小实验探C#代码性能优化/</id>
     <published>2016-10-12T14:45:15.000Z</published>
-    <updated>2016-10-13T04:38:25.000Z</updated>
+    <updated>2016-10-13T04:40:59.000Z</updated>
     
     <content type="html"><![CDATA[<ul>
 <li><p>摘要：一个C#小实验引起的代码性能探究</p>
@@ -130,7 +130,9 @@
     
     </summary>
     
-      <category term="C# 代码优化" scheme="http://yoursite.com/categories/C-%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/"/>
+      <category term="C#" scheme="http://yoursite.com/categories/C/"/>
+    
+      <category term="代码优化" scheme="http://yoursite.com/categories/C/%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/"/>
     
     
       <category term="Seahub, C#, Scau防伪码实验, 代码优化" scheme="http://yoursite.com/tags/Seahub-C-Scau%E9%98%B2%E4%BC%AA%E7%A0%81%E5%AE%9E%E9%AA%8C-%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/"/>
