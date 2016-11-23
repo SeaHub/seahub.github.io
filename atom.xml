@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-10-23T14:00:48.000Z</updated>
+  <updated>2016-11-23T04:50:24.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,19 +16,166 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>UIResponder, Weak Or Strong?</title>
+    <link href="http://yoursite.com/2016/11/22/UIResponder,%20Weak%20Or%20Strong/"/>
+    <id>http://yoursite.com/2016/11/22/UIResponder, Weak Or Strong/</id>
+    <published>2016-11-22T14:47:39.000Z</published>
+    <updated>2016-11-23T04:50:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<ul>
+<li><p>摘要：一个小问题引起的两三思</p>
+<a id="more"></a>
+<hr>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2></li>
+<li><p>一朋友在看视频学习时敲下以下代码（涉及到的主要代码如下），然后问了我一个小问题，问题是：”为什么要有weakLabel指向aLabel?”。</p>
+<img src="/2016/11/22/UIResponder,%20Weak%20Or%20Strong/defaultCode.png" alt="DefaultCode" title="DefaultCode">
+</li>
+<li><p>我给他的答案比较简单：”因为新建的aLabel可能在后续的地方用到，所以使用weakLabel指向，这样做主要是方便以后访问”</p>
+</li>
+<li><p>问题本该到此就结束了，本篇文章也许就不复存在。然而，后来朋友走后，看到属性的weak定义，自己又产生了一些后续的思考：”我们使用属性指向UIResponder控件的时候 ，应该是weak还是strong呢？” 针对这个问题，我认为，应该有以下几种情况可以用作讨论。以下纯属个人之见，如有不对，还望指正</p>
+</li>
+</ul>
+<hr>
+<h2 id="Using-Interface-Builder"><a href="#Using-Interface-Builder" class="headerlink" title="Using Interface Builder"></a>Using Interface Builder</h2><ul>
+<li><p>结论：在使用IB构建界面的时候，应该使用<strong>弱属性</strong></p>
+</li>
+<li><p>讨论：</p>
+<ul>
+<li><p>我们使用IB”画界面”的时候，IB自动为我们生成的代码就是weak的（如下图）</p>
+<p>​<img src="/2016/11/22/UIResponder,%20Weak%20Or%20Strong/aWeakIBLabel.png" alt="IBCreatedCode" title="IBCreatedCode"></p>
+</li>
+<li><p>这是为什么呢？主要是因为我们使用IB设计界面时，View因为是Controller的属性，会被自动持有，而我们在界面设计中的UILabel则被View持有的SubViews的其中一个SubView所持有，即持有关系如下图。</p>
+<img src="/2016/11/22/UIResponder,%20Weak%20Or%20Strong/holdingDiagram.png" alt="Holding" title="Holding">
+</li>
+<li><p>既然aIBLabel已经被最顶层的Controller所持有了，那么，我们再去使用一个同样被Controller所持有强属性aIBLabel去持有UILabel也就变得没有意义了。因为UILabel的生命周期不是由属性aIBLabel去维持的，所以这里我们只需用弱属性指向（见上图），便于后续使用即可</p>
+</li>
+<li><p>那么我们这里使用强属性会有问题吗?</p>
+<ul>
+<li>没有问题。当使用强属性指向控件的时候，UILabel的引用计数为2。当Controller释放时，Controller指向的Properties（包含View与aIBLabel属性）也会释放。而他们的释放又会导致UILabel的引用计数下降至0，一切都安全释放，没有问题。不过苹果更加建议我们在IB中使用弱属性，主要原因可能是因为：如果View都被释放了，那View上的控件即使存在，又有什么意义呢?</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="Using-Code-Code-Style-1"><a href="#Using-Code-Code-Style-1" class="headerlink" title="Using Code - Code Style 1"></a>Using Code - Code Style 1</h2><ul>
+<li><p>结论：在使用代码构建界面的时候，不同的代码风格应当使用不同的持有方式。采用局部变量<strong>创建并立即添加</strong>到View上的控件，可用<strong>弱属性</strong>指向；采用局部变量创建，但出了局部变量作用域后，再延后添加到View上的控件，需用<strong>强属性</strong>指向</p>
+</li>
+<li><p>讨论：</p>
+<ul>
+<li><p>第一种代码风格：采用临时变量创建并立即添加控件，采用weak变量指向，代码如下</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// ...</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>, <span class="keyword">readwrite</span>)   <span class="built_in">UILabel</span> *weakLabel;</div><div class="line"><span class="comment">// ...</span></div><div class="line"><span class="comment">// Code Style 1:</span></div><div class="line"><span class="built_in">UILabel</span> *aLabel  = [[<span class="built_in">UILabel</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(viewSize.width / <span class="number">2</span> - <span class="number">40</span>, viewSize.height / <span class="number">2</span> - <span class="number">40</span>, <span class="number">80</span>, <span class="number">80</span>)]; <span class="comment">// ①New - retainCount = 1</span></div><div class="line">aLabel.text      = aString;</div><div class="line"><span class="keyword">self</span>.weakLabel   = aLabel; 				<span class="comment">// ②Point To It  - retainCount = 1</span></div><div class="line">[<span class="keyword">self</span>.view addSubview:aLabel]; 			<span class="comment">// ③Add SubView  - retainCount = 2</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>此时的持有关系图如下</p>
+<img src="/2016/11/22/UIResponder,%20Weak%20Or%20Strong/holdingDiagram2.png" alt="Holding Of Code Style 1" title="Holding Of Code Style 1">
+</li>
+<li><p>UILabel的引用计数</p>
+<ol>
+<li>局部变量aLabel创建了UILabel，并持有，这个局部变量在出了作用域之后就被内存收回</li>
+<li>我们为了方便下文继续引用，使用了一个弱属性指向他（如果下文不需要这个变量，不指向他也是可以的，因为他不会影响对象的生命周期）</li>
+<li>把这个UILabel添加到View的Subview上，简单而言，就是View间接持有了这一个UILabel。至此，UILabel才”安全着陆”，哪怕此时局部变量突然因为某些突发情况/出了作用域被收回，UILabel这一块内存也不会被收回（只是引用计数从二将至一罢了）</li>
+</ol>
+</li>
+<li><p>如果我们想要延后添加控件（不立即添加到View上，但依旧使用weakLabel指向他）。在过后某个事件中使用<code>[self.view addSubview:self.weakLabel];</code>添加可以吗?</p>
+<ul>
+<li>不可以！因为当出了这一块函数作用域后，局部变量aLabel的内存将被收回。此时因为再也没有强属性/变量指向我们创建的UILabel了，所以UILabel的<code>retainCount = 0</code>，UILabel的内存也因此被收回。我们的弱属性weakLabel因为指向的对象已经被释放，所以他将自动将自己设为nil，以避免出现野指针问题。所以我们在后面使用<code>[self.view addSubview:self.weakLabel];</code>时，实际上是向空指针发送消息，在OC中，向空指针发送消息不会被处理，也不会抛出异常，所以一切事情看似”平静”度过了，UILabel也因此没有被添加到View上</li>
+</ul>
+</li>
+<li><p>我们在这里使用强属性指向会有问题吗?</p>
+<ul>
+<li>没有问题，而且<strong>需要延后添加控件的情况需要使用强属性指向</strong>。当使用强属性指向控件的时候，UILabel的引用计数为2。如果没有使用<code>[self.view addSubview:self.weakLabel];</code>，在出了变量作用范围后（即aLabel已经无法访问）时，引用计数降至一，此时可以在其他方法使用<code>[self.view addSubview:self.weakLabel];</code>延后添加；如果是立即添加，内存亦会被安全释放，理由同上文<em>Using Interface Builder</em>中的强属性指向讨论</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="Using-Code-Code-Style-2"><a href="#Using-Code-Code-Style-2" class="headerlink" title="Using Code - Code Style 2"></a>Using Code - Code Style 2</h2><ul>
+<li><p>结论：在使用代码构建界面的时候，不同的代码风格应当使用不同的持有方式。直接采用属性创建的控件，应该使用<strong>强属性</strong>指向</p>
+</li>
+<li><p>讨论：</p>
+<ul>
+<li><p>第二种代码风格：直接使用属性创建的控件，应用强属性指向，代码如下</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// ...</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>, <span class="keyword">readwrite</span>) <span class="built_in">UILabel</span> *strongLabel;</div><div class="line"><span class="comment">// ...</span></div><div class="line"><span class="comment">// Code Style 2:</span></div><div class="line"><span class="keyword">self</span>.strongLabel      = [[<span class="built_in">UILabel</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(viewSize.width / <span class="number">2</span> - <span class="number">40</span>, viewSize.height / <span class="number">2</span> - <span class="number">40</span>, <span class="number">80</span>, <span class="number">80</span>)]; <span class="comment">// ①New - retainCount = 1</span></div><div class="line"><span class="keyword">self</span>.strongLabel.text = aString;</div><div class="line">[<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.strongLabel];    <span class="comment">// ②Add SubView  - retainCount = 2</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>此时的持有关系图如下</p>
+<img src="/2016/11/22/UIResponder,%20Weak%20Or%20Strong/holdingDiagram3.png" alt="Holding Of Code Style 2" title="Holding Of Code Style 2">
+</li>
+<li><p>UILabel的引用计数</p>
+<ol>
+<li>strongLabel属性创建并持有UILabel控件，strongLabel被Controller所持有，所以在Controller死亡之前，无论strongLabel属性还是UILabel控件的内存，都不会被收回</li>
+<li>把这个UILabel添加到View的Subview上，View间接持有了这一个UILabel。此时UILabel控件的引用计数增至二。当Controller死亡时，属性View与属性strongLabel均死亡，直接导致UILabel控件引用计数降至零，UILabel控件安全释放</li>
+</ol>
+</li>
+<li><p>我们在这里使用弱属性指向会有问题吗?</p>
+<ul>
+<li><p>有！实际上，当你这样做的时候，我们的Xcode就会出现以下提示提醒你不应该这样做了</p>
+<blockquote>
+<p>Assigning retained object to weak property; object will be released after assignment</p>
+</blockquote>
+</li>
+<li><p>当我们使用weak属性创建UILabel控件的时候，创建确实是成功创建了，然而，引用没有其他强属性/变量指向它，所以他一创建不久，他就自怨自艾的觉得自己没有用，”自尽”了。所以我们采用第二种代码风格的时候，一定要使用强属性进行指向</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>总结：本文讨论了三种不同代码风格指向控件时，应采用的属性内存管理特性，分析如有错误，还望各位指出。一言以蔽之，使用IB构建视图的时候尽量使用强属性，使用代码构建视图的时候尽量使用强属性。</li>
+<li>另外个人还有一些小的思考：Code Style 1 与 Code Style 2的区别是什么？我认为：<ul>
+<li>第一种代码风格主要秉承”先配置好控件，控件再上”的理念，这样能够减少调用View的setter/getter，某种程度上可能加快了效率（虽然只是一点点）。</li>
+<li>第二种代码风格主要秉承”控件先上，其他慢慢来”的理念，这样虽然会大量调用到View的setter/getter，但是在某种程度上，减少了创建局部变量的内存消耗（虽然很少）。</li>
+<li>个人的话，比较钟爱第二种方式，至于为什么？无非是因为第二种方式代码量较少罢了，毕竟，代码这东西少一句有可能就少一次Debug :)</li>
+</ul>
+</li>
+<li>本文代码下载<ul>
+<li><a href="https://github.com/SeaHub/CodeSample/tree/master/Code/WOSUIResponder" target="_blank" rel="external"><strong>Github Repo - WOSUIResponder</strong></a></li>
+<li>运行环境：Xcode 8.1(8B62)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>Last Edited：2016.11.23</li>
+<li>Author：@Seahub</li>
+<li>Please <a href="Seahubc@qq.com">contact me</a> if you want to share this Article, 3Q~</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;摘要：一个小问题引起的两三思&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="ObjC" scheme="http://yoursite.com/categories/ObjC/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/ObjC/iOS/"/>
+    
+    
+      <category term="Seahub" scheme="http://yoursite.com/tags/Seahub/"/>
+    
+      <category term="ObjC" scheme="http://yoursite.com/tags/ObjC/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
     <title>从小实验探代码优化</title>
     <link href="http://yoursite.com/2016/10/12/%E4%BB%8E%E5%B0%8F%E5%AE%9E%E9%AA%8C%E6%8E%A2%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/"/>
     <id>http://yoursite.com/2016/10/12/从小实验探代码优化/</id>
     <published>2016-10-12T14:45:15.000Z</published>
-    <updated>2016-10-23T14:00:48.000Z</updated>
+    <updated>2016-11-01T16:53:58.000Z</updated>
     
     <content type="html"><![CDATA[<ul>
 <li><p>摘要：一个C#小实验引起的代码性能探究</p>
 <a id="more"></a>
 <hr>
-</li>
-<li><p>前言</p>
-<ul>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2></li>
 <li><p>本文源于一个C#小实验：生成防伪码。与其他以“完成目标”为要求的实验不同，该实验以“性能优化”为要求。实验题目（见下）很简单，简单的数行代码即可实现。而如何让代码达到最佳的性能，即以最短的运行时间运行，成为了我纠结的问题。此处仅以此文记录我的思考过程，望日后有助于同行。</p>
 <blockquote>
 <ul>
@@ -49,10 +196,8 @@
 </ol>
 </blockquote>
 </li>
-</ul>
-</li>
 <li><p>先贴出公用模板 - 下述其他代码默认嵌套在此模板内执行</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// *****************************************************</span></div><div class="line"><span class="comment">// author: @Seahub Seahubc@gmail.com || Seahubc@qq.com</span></div><div class="line"><span class="comment">// 实验一：生成防伪码</span></div><div class="line"><span class="comment">// 防伪码组成元素：0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ</span></div><div class="line"><span class="comment">// input:  防伪码长度 防伪码个数</span></div><div class="line"><span class="comment">// output: 防伪码运行所需时间</span></div><div class="line"><span class="comment">// PS: 防伪码不能重复</span></div><div class="line"><span class="comment">// *****************************************************</span></div><div class="line"><span class="comment">// 测试样例：生成防伪码长度为10，防伪码个数为1,000,000的运算时间</span></div><div class="line"><span class="comment">// 测试环境：Win7 i5-4670T 16GB内存</span></div><div class="line"><span class="comment">// *****************************************************</span></div><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="keyword">using</span> System.Collections.Generic;</div><div class="line"><span class="keyword">using</span> System.Linq;</div><div class="line"><span class="keyword">using</span> System.Text;</div><div class="line"><span class="keyword">using</span> System.Threading.Tasks;</div><div class="line"><span class="keyword">using</span> System.Diagnostics;</div><div class="line"><span class="keyword">using</span> System.Collections;</div><div class="line"></div><div class="line"><span class="keyword">namespace</span> <span class="title">SecurityCode</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">class</span> <span class="title">Program</span></div><div class="line">    &#123;</div><div class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></div><div class="line">        &#123;</div><div class="line">            <span class="comment">// ===================== 固定常量 =====================</span></div><div class="line">            <span class="keyword">const</span> String charArr = <span class="string">"0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ"</span>;</div><div class="line"></div><div class="line">            <span class="comment">// ===================== 获取参数 =====================</span></div><div class="line">            <span class="keyword">int</span> lengthOfSecurityCode = <span class="number">0</span>;</div><div class="line">            <span class="keyword">int</span> numberOfSecurityCode = <span class="number">0</span>;</div><div class="line">            <span class="keyword">if</span> (args.Length &lt; <span class="number">2</span>)</div><div class="line">            &#123;</div><div class="line">                <span class="comment">// 当args带的参数 &lt; 2时，提示输入两个参数</span></div><div class="line">                System.Console.WriteLine(<span class="string">"Please input parameter - "</span> +</div><div class="line">                    <span class="string">"lengthOfSecurityCode:"</span>);</div><div class="line">                lengthOfSecurityCode = Convert.ToInt32(Console.ReadLine());</div><div class="line">                System.Console.WriteLine(<span class="string">"Please input parameter - "</span> +</div><div class="line">                    <span class="string">"numberOfSecurityCode:"</span>);</div><div class="line">                numberOfSecurityCode = Convert.ToInt32(Console.ReadLine());</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                lengthOfSecurityCode = <span class="keyword">int</span>.Parse(args[<span class="number">0</span>]);</div><div class="line">                numberOfSecurityCode = <span class="keyword">int</span>.Parse(args[<span class="number">1</span>]);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="comment">// ===================== 开始计时 =====================</span></div><div class="line">            Stopwatch timer = <span class="keyword">new</span> Stopwatch();</div><div class="line">            timer.Start();</div><div class="line">          	</div><div class="line">          	<span class="comment">// ===================== 核心函数 =====================</span></div><div class="line">          	<span class="comment">// toDo - 下述思考过程代码将代替此部分</span></div><div class="line">          </div><div class="line">            <span class="comment">// =================== 停止计时并输出 ==================</span></div><div class="line">            timer.Stop();</div><div class="line">            <span class="keyword">double</span> dMilliseconds = timer.Elapsed.TotalMilliseconds;</div><div class="line">            System.Console.WriteLine(<span class="string">"生成个数为："</span> + numberOfSecurityCode +</div><div class="line">                <span class="string">"，运行时间为："</span> + dMilliseconds + <span class="string">"s"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// *****************************************************</span></div><div class="line"><span class="comment">// author: @Seahub Seahubc@gmail.com || Seahubc@qq.com</span></div><div class="line"><span class="comment">// 实验一：生成防伪码</span></div><div class="line"><span class="comment">// 防伪码组成元素：0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ</span></div><div class="line"><span class="comment">// input:  防伪码长度 防伪码个数</span></div><div class="line"><span class="comment">// output: 防伪码运行所需时间</span></div><div class="line"><span class="comment">// PS: 防伪码不能重复</span></div><div class="line"><span class="comment">// *****************************************************</span></div><div class="line"><span class="comment">// 测试样例：生成防伪码长度为10，防伪码个数为1,000,000的运算时间</span></div><div class="line"><span class="comment">// 测试环境：Win7 i5-4670T 16GB内存</span></div><div class="line"><span class="comment">// *****************************************************</span></div><div class="line"><span class="keyword">using</span> System;</div><div class="line"><span class="keyword">using</span> System.Collections.Generic;</div><div class="line"><span class="keyword">using</span> System.Linq;</div><div class="line"><span class="keyword">using</span> System.Text;</div><div class="line"><span class="keyword">using</span> System.Threading.Tasks;</div><div class="line"><span class="keyword">using</span> System.Diagnostics;</div><div class="line"><span class="keyword">using</span> System.Collections;</div><div class="line"></div><div class="line"><span class="keyword">namespace</span> <span class="title">SecurityCode</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">class</span> <span class="title">Program</span></div><div class="line">    &#123;</div><div class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></div><div class="line">        &#123;</div><div class="line">            <span class="comment">// ===================== 固定常量 =====================</span></div><div class="line">            <span class="keyword">const</span> String charArr = <span class="string">"0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ"</span>;</div><div class="line"></div><div class="line">            <span class="comment">// ===================== 获取参数 =====================</span></div><div class="line">            <span class="keyword">int</span> lengthOfSecurityCode = <span class="number">0</span>;</div><div class="line">            <span class="keyword">int</span> numberOfSecurityCode = <span class="number">0</span>;</div><div class="line">            <span class="keyword">if</span> (args.Length &lt; <span class="number">2</span>)</div><div class="line">            &#123;</div><div class="line">                <span class="comment">// 当args带的参数 &lt; 2时，提示输入两个参数</span></div><div class="line">                System.Console.WriteLine(<span class="string">"Please input parameter - "</span> +</div><div class="line">                    <span class="string">"lengthOfSecurityCode:"</span>);</div><div class="line">                lengthOfSecurityCode = Convert.ToInt32(Console.ReadLine());</div><div class="line">                System.Console.WriteLine(<span class="string">"Please input parameter - "</span> +</div><div class="line">                    <span class="string">"numberOfSecurityCode:"</span>);</div><div class="line">                numberOfSecurityCode = Convert.ToInt32(Console.ReadLine());</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                lengthOfSecurityCode = <span class="keyword">int</span>.Parse(args[<span class="number">0</span>]);</div><div class="line">                numberOfSecurityCode = <span class="keyword">int</span>.Parse(args[<span class="number">1</span>]);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="comment">// ===================== 开始计时 =====================</span></div><div class="line">            Stopwatch timer = <span class="keyword">new</span> Stopwatch();</div><div class="line">            timer.Start();</div><div class="line">          	</div><div class="line">          	<span class="comment">// ===================== 核心函数 =====================</span></div><div class="line">          	<span class="comment">// toDo - 下述思考过程代码将代替此部分</span></div><div class="line">          </div><div class="line">            <span class="comment">// =================== 停止计时并输出 ==================</span></div><div class="line">            timer.Stop();</div><div class="line">            <span class="keyword">double</span> dMilliseconds = timer.Elapsed.TotalMilliseconds;</div><div class="line">            System.Console.WriteLine(<span class="string">"生成个数为："</span> + numberOfSecurityCode +</div><div class="line">                <span class="string">"，运行时间为："</span> + dMilliseconds + <span class="string">"ms"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
@@ -150,23 +295,24 @@
     <link href="http://yoursite.com/2016/10/09/%E6%88%91%E6%89%80%E7%90%86%E8%A7%A3%E7%9A%84%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
     <id>http://yoursite.com/2016/10/09/我所理解的小程序/</id>
     <published>2016-10-09T00:33:54.000Z</published>
-    <updated>2016-10-13T04:42:33.000Z</updated>
+    <updated>2016-11-01T16:55:06.000Z</updated>
     
     <content type="html"><![CDATA[<ul>
 <li><p>摘要：Hackathon的见闻与微信小程序的真机初体验</p>
 <a id="more"></a>
-<hr>
 </li>
-<li><p>前言</p>
-<ul>
-<li>之前一直都很想参加一场真正的黑客马拉松，奈何大部分的国内黑客马拉松都在北上杭，而我作为穷苦的学生党，没有额外的资金买车票去远方追求理想与梦想。所幸，2016年第一场在广州举办的黑客马拉松，我有幸坑了两个朋友（后端玩家Samray、Web前端玩家Nomad），一同参与其中，一天多的专注，让我有幸体验了一下未来的小程序，感触颇多，因记此文。文章前半部分叙述Hackathon相关的内容，后半部分叙述小程序相关的内容，读者若对前半部分不感兴趣，跳过即可。</li>
 </ul>
+<hr>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
+<li><p>之前一直都很想参加一场真正的黑客马拉松，奈何大部分的国内黑客马拉松都在北上杭，而我作为穷苦的学生党，没有额外的资金买车票去远方追求理想与梦想。所幸，2016年第一场在广州举办的黑客马拉松，我有幸坑了两个朋友（后端玩家Samray、Web前端玩家Nomad），一同参与其中，一天多的专注，让我有幸体验了一下未来的小程序，感触颇多，因记此文。文章前半部分叙述Hackathon相关的内容，后半部分叙述小程序相关的内容，读者若对前半部分不感兴趣，跳过即可。</p>
 <hr>
 <h4 id="Hackathon"><a href="#Hackathon" class="headerlink" title="Hackathon"></a>Hackathon</h4><blockquote>
 <p>Hackathon Place: GuangZhou TIT iFanr</p>
 <p>Hackathon Date: 2016.10.7 10:00 - 2016.10.8 15:00</p>
 <p>Hackathon Topic: The Future WeChat App</p>
 </blockquote>
+</li>
+</ul>
 <ul>
 <li><p>Hackathon Pre：</p>
 <ul>
@@ -199,10 +345,8 @@
 </ul>
 </li>
 <li><p>Pig Raising项目已经开源，有兴趣的朋友可以前往一试 =&gt; <a href="https://github.com/SeaHub/PigRaising" target="_blank" rel="external">传送门</a>  </p>
-<img src="/2016/10/09/我所理解的小程序/1.jpeg" alt="Group Photo" title="Group Photo">
-</li>
-</ul>
-</li>
+<pre><code>{% asset_img 1.jpeg  Group Photo %}
+</code></pre></li>
 </ul>
 <hr>
 <h4 id="Wechat-App"><a href="#Wechat-App" class="headerlink" title="Wechat App"></a>Wechat App</h4><ul>
@@ -343,7 +487,7 @@
     <link href="http://yoursite.com/2016/09/25/%E5%9C%A8%E6%A0%A1%E5%9B%AD%E7%BD%91%E4%B8%8A%E4%BD%BF%E7%94%A8IPv6/"/>
     <id>http://yoursite.com/2016/09/25/在校园网上使用IPv6/</id>
     <published>2016-09-25T14:48:13.000Z</published>
-    <updated>2016-10-13T04:42:40.000Z</updated>
+    <updated>2016-11-01T16:52:50.000Z</updated>
     
     <content type="html"><![CDATA[<ul>
 <li><p>摘要：折腾校园网IPv6的两三事</p>
@@ -361,7 +505,7 @@
 </li>
 <li><p>设置IPv6 DNS</p>
 </li>
-<li><p>修改hosts文件的域名-地址映射关系，使得访问域名时优先访问IPv6的地址，否则我们每次访问网站的时候都需要记着该网站IPv6的地址</p>
+<li><p>修改hosts文件的域名-地址映射关系，使得访问域名时优先访问IPv6的地址，否则每次都要请求DNS</p>
 <blockquote>
 <p>hosts知识补充：Hosts 文件本来是用来提高解析效率。在进行 DNS 请求以前，系统会先检查自己的 Hosts 文件中是否有这个地址映射关系，如果有则调用这个 IP 地址映射，如果没有再向已知的 DNS 服务器提出域名解析。也就是说 Hosts 的请求级别比 DNS 高。当你的 Hosts 文件里面有对应的 IP 时，它就会直接访问那个 IP，而不用通过 DNS。</p>
 <p>作者：Wildog<br>来源：<a href="https://www.zhihu.com/question/19782572/answer/12946786" target="_blank" rel="external">知乎 - 修改 hosts 文件的原理是什么?</a></p>
@@ -485,22 +629,68 @@
     <link href="http://yoursite.com/2016/09/17/HelloMyBlog/"/>
     <id>http://yoursite.com/2016/09/17/HelloMyBlog/</id>
     <published>2016-09-17T12:19:43.000Z</published>
-    <updated>2016-10-13T06:56:59.000Z</updated>
+    <updated>2016-11-22T14:19:51.000Z</updated>
     
     <content type="html"><![CDATA[<ul>
 <li><p>摘要：开博客的原因以及一些个人感触</p>
 <a id="more"></a>
 <hr>
-</li>
-<li><p>小记</p>
-<ul>
+<h2 id="小记"><a href="#小记" class="headerlink" title="小记"></a>小记</h2><ul>
 <li>自从上大学以来，每天都在接触新的知识。学得越多，让我感觉不会的也就越多。学得虽多，但是由于日常性情懒惰，闲于整理，故一直对许多知识结构不是十分清楚。希望借助本博客，整理好自己的学习体系，逐渐提高自己对知识的整体把握度。</li>
 </ul>
-</li>
-<li><p>博客相关</p>
+<h2 id="CodeVs-系列介绍"><a href="#CodeVs-系列介绍" class="headerlink" title="CodeVs 系列介绍"></a>CodeVs 系列介绍</h2><ul>
+<li><p>Q1：这个系列是什么？</p>
+<blockquote>
 <ul>
-<li>博客内容均为原创，若文章中有相关的参考资料，将会以引用方式标注参考内容的作者、并标明原作者以及原链接，以引导读者进一步阅读更多相关资料</li>
-<li>博客每篇文章最底部会有一个”Last Edited”表示文章的最后修订状态<ul>
+<li><p>我对CodeVs系列的定义：通过对框架 / 语言 / 思想进行比较，将已有的知识体系迁移到正在学习的知识体系上，在学习新知识的同时，对旧知识进行重温。</p>
+</li>
+<li><p>每篇CodeVs系列文章开始前会有一个文章说明，如下：</p>
+<ul>
+<li><p>CodeVs Header</p>
+<ul>
+<li><p>CodeVs Version</p>
+<p>// 当前的版本号 - 每一次大修改我都会更改版本号 - 默认版本号为1.0</p>
+<ul>
+<li>Old =&gt; New            </li>
+</ul>
+<p>// 旧体系为Old，新体系为New，该文讲述如何以旧体系的角度理解新体系</p>
+</li>
+<li><p>Acticle Related Knowledge </p>
+<p>// 该文对比的知识点</p>
+</li>
+<li><p>Old Environment</p>
+<p>// 旧体系的编程环境 - 该文旧体系的代码保证能在该编程环境正常编译、运行</p>
+</li>
+<li><p>New Environment</p>
+<p>// 新体系的编程环境 - 该文新体系的代码保证能在该编程环境正常编译、运行</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>Q2：为什么会有这个系列？</p>
+<blockquote>
+<ul>
+<li>这个系列源于个人的学习感触。个人而言，很多知识点，在项目需要时，是掌握的。但一当项目完结或在一段时间不用该框架、语言、思维方式编程而转用另外的新体系时，可能过了不久，我们对旧体系的掌握度就逐渐下降，乃至陌生。</li>
+<li>这个感触在我大二升大三这一阶段尤为深刻。由于课业、项目需要，学了不少语言，诸如Java、Python等。陆陆续续，语言越学越多，直到现在，我对Java、Python的能力，也就仅限于“勉强能读”的阶段了，这也许就是所谓的最熟悉的陌生人。</li>
+<li>为了避免再次见到陌生人，故作此系列以在学习新知识的同时，对旧知识进行比较与重温。</li>
+</ul>
+</blockquote>
+</li>
+<li><p>Q3：这个系列会持续多久？</p>
+<blockquote>
+<ul>
+<li>这个问题不好答。这一次，我给自己挖的坑很大，我会断断续续更新该系列的文章，愿该系列不断陪伴着我成长。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="博客相关"><a href="#博客相关" class="headerlink" title="博客相关"></a>博客相关</h2><ul>
+<li>博客内容均为原创，若文章中有相关的参考资料，将会以引用方式标注参考内容的作者、并标明原作者以及原链接，以引导读者进一步阅读更多相关资料<ul>
+<li>博客每篇文章最底部会有一个”Last Edited”表示文章的最后修订状态</li>
 <li>修订一般为内容的修正，代码风格的更新等</li>
 <li>特别重要的修订将会在文章标题标注 / 以补充文章的形式出现</li>
 </ul>
@@ -513,7 +703,7 @@
 </ul>
 <hr>
 <ul>
-<li>Last Edited：2016.10.13</li>
+<li>Last Edited：2016.11.2</li>
 <li>Author：@Seahub</li>
 <li>Please <a href="Seahubc@qq.com">contact me</a> if you want to share this Article, 3Q~</li>
 </ul>
