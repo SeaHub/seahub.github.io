@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>Top-Level Const And Low-Level Const | Words Of Life</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Words Of Life">
+    <meta name="author" content="Seahub">
+    <meta name="description" content="Record the things appearing in my life" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Words Of Life" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="https://github.com/SeaHub/BlogOfComputerNetwork" target="_BLANK" class="animsition-link">BlogOfComputerNetwork</a></li>
+                    
+                        <li><a href="https://github.com/SeaHub/PigRaising" target="_BLANK" class="animsition-link">PigRaising</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/C/" class="animsition-link">C#<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/ObjC/" class="animsition-link">ObjC<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/ObjC/iOS/" class="animsition-link">iOS<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/C/代码优化/" class="animsition-link">代码优化<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/小记/" class="animsition-link">小记<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/工具/" class="animsition-link">工具<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/微信小程序/" class="animsition-link">微信小程序<small>(1)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Words Of Life</a></li>
+                            <li class="nolink"><span>Always Be Concentrated.</span></li>
+                            
+                            <li><a href="https://github.com/SeaHub" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            
+                            
+                            
+                            <li class="nolink"><span>Enjoy!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-12-05T04:41:52.000Z" itemprop="datePublished">
+          2016-12-05
+      </time>
+    
+    
+    | 
+    <a href='/tags/Seahub/'>Seahub</a>,
+    
+    <a href='/tags/ObjC/'>ObjC</a>
+    
+    
+</span>
+                <h1>Top-Level Const And Low-Level Const</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<ul>
+<li><p>摘要：ObjC Const 小坑总结</p>
+<a id="more"></a>
+</li>
+</ul>
+<hr>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
+<li>记得刚学ObjC的时候，总是被顶层<code>const</code>和底层<code>const</code>搞的头晕晕的（也可能是我本人比较笨的原因吧:]）。谨以此文，记录我踏过的坑，同时也希望为后人扫个雷</li>
+</ul>
+<hr>
+<h2 id="先谈C-顶层const与底层const"><a href="#先谈C-顶层const与底层const" class="headerlink" title="先谈C++ 顶层const与底层const"></a>先谈C++ 顶层const与底层const</h2><ul>
+<li><p>最早了解到<code>const</code>相关的话题时，是在阅读C++ Primer一书时，里面提到的两个概念</p>
+<blockquote>
+<p>顶层const：表示指针本身是个常量</p>
+<p>底层const：表示指针所指的对象是一个常量</p>
+</blockquote>
+</li>
+<li><p>在C++中，由顶层<code>const</code>与底层<code>const</code> + 指针类型，又衍生了两个概念</p>
+<ul>
+<li>常量指针：顶层<code>const</code>指针，即指针不可变，不能再指向其他元素，但指针指向的元素自身可变</li>
+<li>指针常量：底层<code>const</code>指针，即指针可变，但指针指向的元素自身不可变</li>
+</ul>
+</li>
+<li><p>概念本身是很简单的，但是上了代码之后，我们能认清下面哪个是顶层，哪个是底层吗?</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 普通变量</span></div><div class="line"><span class="keyword">int</span> a = <span class="number">0</span>;</div><div class="line"><span class="keyword">int</span> b = <span class="number">1</span>;</div><div class="line">    </div><div class="line"><span class="keyword">int</span> *<span class="keyword">const</span> ptrA = &amp;a;</div><div class="line"><span class="comment">// 顶层const，ptrA为常量指针，ptrA不能再指向其他变量</span></div><div class="line"><span class="comment">// ==== Error Code ====</span></div><div class="line"><span class="comment">// ptrA = &amp;b;</span></div><div class="line"><span class="comment">// ==== Allow Code ====</span></div><div class="line">*ptrA = <span class="number">2</span>;</div><div class="line">    </div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> *ptrB = &amp;b;</div><div class="line"><span class="comment">// 底层const, ptrB为指针常量，ptrB指向的b不能改变</span></div><div class="line"><span class="comment">// ==== Error Code ====</span></div><div class="line"><span class="comment">// *ptrB = 2;</span></div><div class="line"><span class="comment">// ==== Allow Code ====</span></div><div class="line">ptrB = &amp;a;</div><div class="line">    </div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> ci = <span class="number">10</span>;</div><div class="line"><span class="comment">// 底层const，ci本身不能再改变</span></div><div class="line"><span class="comment">// ==== Error Code ====</span></div><div class="line"><span class="comment">// ci = 11;</span></div><div class="line">    </div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> *<span class="keyword">const</span> ptrC = ptrB;</div><div class="line"><span class="comment">// 左边为底层const，右边为顶层const，ptrC既是常量指针，又是指针常量</span></div><div class="line"><span class="comment">// ==== Error Code ====</span></div><div class="line"><span class="comment">// ptrC = ptrA;</span></div><div class="line"><span class="comment">// ==== Error Code ====</span></div><div class="line"><span class="comment">// *ptrC = 2;</span></div><div class="line">    </div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> &amp;rA = a;</div><div class="line"><span class="keyword">int</span> <span class="keyword">const</span> &amp;rB = b;</div><div class="line"><span class="comment">// 用于声明引用的都是底层const，这是因为引用本身不能二次赋值</span></div><div class="line"><span class="comment">// ==== Error Code ====</span></div><div class="line"><span class="comment">// rA = 2;</span></div><div class="line"><span class="comment">// rB = 2;</span></div><div class="line">    </div><div class="line"><span class="keyword">int</span> <span class="keyword">const</span> *ptrD = ptrB;</div><div class="line"><span class="comment">// 底层const，ptrD是指针常量，ptrD指向的b本身不能改变</span></div><div class="line"><span class="comment">// ==== Error Code ====</span></div><div class="line"><span class="comment">// *ptrD = 11;</span></div><div class="line"><span class="comment">// ==== Allow Code ====</span></div><div class="line">ptrD = ptrA;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>图解</p>
+<img src="/2016/12/05/Top-Level-Const-And-Low-Level-Const/cpp_const.png" alt="cpp_const" title="cpp_const">
+<ul>
+<li>图解标注<ul>
+<li>空心箭头表示指向的对象值可变 &lt;=&gt; 实心箭头表示指向的对象值不可变</li>
+<li>虚线表示指向对象这种关系可变 &lt;=&gt; 实心箭头表示指向对象这种关系固定了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>小总结</p>
+<ul>
+<li>指针与<code>const</code><ul>
+<li><code>const</code>靠近指针符号<ul>
+<li>=&gt; <code>const</code>为顶层<code>const</code>，指针为常量指针，指向关系不能变</li>
+</ul>
+</li>
+<li>const两边在中间或靠近数据类型<ul>
+<li>=&gt; <code>const</code>为底层<code>const</code>，指针为指针常量，指向关系可变，指向元素不可变</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>引用与<code>const</code><ul>
+<li>引用变量：因为引用不能二次赋值，所以只能声明底层<code>const</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="再谈ObjC-const"><a href="#再谈ObjC-const" class="headerlink" title="再谈ObjC const"></a>再谈ObjC const</h2><ul>
+<li><p>const在ObjC中的用途</p>
+<ul>
+<li><p>代替<code>#define</code>声明常量，保证编译器有类型检测（见下图）</p>
+<img src="/2016/12/05/Top-Level-Const-And-Low-Level-Const/defineAconst.png" alt="define VS const.png" title="define VS const.png">
+</li>
+<li><p>我们希望能够保证kGoodbyeString不被修改，如果我们不去考虑底层<code>const</code>/顶层<code>const</code>的问题，我们可以直接使用两个<code>const</code>来让他达到和#define一样的效果</p>
+</li>
+</ul>
+</li>
+<li><p>讨论</p>
+<ul>
+<li><p>ObjC与C++的const用法是否一样？很幸运，是的。下述三种<code>const</code>用法均与C++的用法一样</p>
+<img src="/2016/12/05/Top-Level-Const-And-Low-Level-Const/normalConst.png" alt="normal" title="normal">
+</li>
+<li><p>那我们要讨论的是什么呢？我们要讨论的是，当指针遇上对象，我们究竟需要什么样的<code>const</code>来达到<code>#define</code>的效果</p>
+<ul>
+<li><p>图解 - 开始</p>
+<img src="/2016/12/05/Top-Level-Const-And-Low-Level-Const/objc_const_start.png" alt="start" title="start">
+<ul>
+<li>图解标注<ul>
+<li>在ObjC中，我们把@”xx”称作字符串常量，在ObjC中，实际上有一个字符串常量池，我们可以把它看作一个集合。用到的字符串都会出现在这里，且只出现一次。然后指针指向这块内存，以降低内存消耗。所以，我们代码中的constStringA、constStringB、constStringC实际上都是指向了这块内存。其中，constStringA、constStringB是指针常量，constStringC是常量指针</li>
+<li>空心箭头表示指向的对象值可变 &lt;=&gt; 实心箭头表示指向的对象值不可变</li>
+<li>虚线表示指向对象这种关系可变 &lt;=&gt; 实心箭头表示指向对象这种关系固定了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>接下来，我们来执行一段代码，再来看看状态</p>
+<img src="/2016/12/05/Top-Level-Const-And-Low-Level-Const/code.png" alt="code" title="code">
+</li>
+<li><p>图解 - 执行代码后</p>
+<img src="/2016/12/05/Top-Level-Const-And-Low-Level-Const/objc_const_end.png" alt="end" title="end">
+<ul>
+<li>图解标注<ul>
+<li>执行代码后，实际上改变的是指针的指向，而非内存里字符串常量的值</li>
+<li>空心箭头表示指向的对象值可变 &lt;=&gt; 实心箭头表示指向的对象值不可变</li>
+<li>虚线表示指向对象这种关系可变 &lt;=&gt; 实心箭头表示指向对象这种关系固定了</li>
+<li>从图上看，我们可以知道，对于字符串常量对象而言，因为字符串本身就不可变了，我们希望指向他的指针的指向关系不能改变。所以我们需要使用的应该是常量指针（constStringC）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>上述部分只是针对字符串常量对象而言，针对字符串常量，我们如果想要达到<code>#define</code>的效果，需要使用的应该是常量指针（即顶层<code>const</code>）</p>
+</li>
+<li><p>由于在ObjC中，大部分对象都会涉及到指针，所以对于对象而言，我们首先要使用顶层<code>const</code>。其次我们还要研究对象本身是否可变，如果本身可变，则要用底层<code>const</code></p>
+</li>
+</ul>
+</li>
+<li><p>小总结</p>
+<ul>
+<li>在ObjC中使用<code>const</code>代替<code>#define</code>中最简单的用法：使用两个<code>const</code>来限定</li>
+<li>如果不想使用两个<code>const</code>，我们则需研究对象本身是否可变，如果本身可变，则要用底层<code>const</code> + 顶层<code>const</code>；否则用一个顶层<code>const</code>即可</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>本文代码下载<ul>
+<li><a href="https://github.com/SeaHub/CodeSample/tree/master/Code/CppLearningConst" target="_blank" rel="external"><strong>Github Repo - CppLearningConst</strong></a></li>
+<li><a href="https://github.com/SeaHub/CodeSample/tree/master/Code/ObjCLearningConst" target="_blank" rel="external"><strong>Github Repo - ObjCLearningConst</strong></a></li>
+<li>运行环境：Xcode 8.1(8B62)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>Last Edited：2016.12.5</li>
+<li>Author：@Seahub</li>
+<li>Please <a href="Seahubc@qq.com">contact me</a> if you want to share this Article, 3Q~</li>
+</ul>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2016/11/22/UIResponder, Weak Or Strong/">
+        UIResponder, Weak Or Strong? →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo"></div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Seahub. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/SeaHub" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    
+                    
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
