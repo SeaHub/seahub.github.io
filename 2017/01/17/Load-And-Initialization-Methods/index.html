@@ -289,7 +289,7 @@
 </ul>
 <ul>
 <li><p>例子B补充：由于在父类A中，<code>initialize</code>方法会被调用两次，可在父类A使用以下代码，避免父类A的<code>initialize</code>方法多次执行初始化代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if (self == [ParentA Class]) &#123;</div><div class="line">  	// initialize</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<img src="/2017/01/17/Load-And-Initialization-Methods/codeA.png" alt="codeA Photo" title="codeA Photo">
 </li>
 <li><p>例子C：假设分类B+C是子类B的分类，分类含有<code>initialize</code>方法，但该方法不含<code>[super initialize]</code>。而子类B是父类A的子类，子类B中<code>initialize</code>方法为非空实现，在<code>AppDelegate.m</code>中创建一个子类B对象，则<code>initialize</code>方法调用顺序如下：</p>
 <ol>
@@ -302,7 +302,7 @@
 <li><p>一般应用场景</p>
 <ul>
 <li><p>用于初始化无法直接初始化的全局状态的<code>static</code>变量，如下，<code>NSArray</code>无法直接初始化，只能在<code>initialize</code>方法中对其进行初始化</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">static NSArray *kSomeDatas;</div><div class="line">@implementation</div><div class="line">+ (void)initialize &#123;</div><div class="line">   	if (self == [ParentA Class]) &#123;</div><div class="line"> 			kSomeDatas = [NSArray array];</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">@end</div></pre></td></tr></table></figure>
+ <img src="/2017/01/17/Load-And-Initialization-Methods/codeB.png" alt="codeB Photo" title="codeB Photo">
 </li>
 </ul>
 <p>​</p>
@@ -345,7 +345,7 @@
 <tr>
 <td style="text-align:center">调用本质</td>
 <td style="text-align:center">函数指针调用</td>
-<td style="text-align:center">消息发送(objc_msgSend)</td>
+<td style="text-align:center">消息发送(<code>objc_msgSend</code>)</td>
 </tr>
 <tr>
 <td style="text-align:center">系统是否最多调用一次</td>
