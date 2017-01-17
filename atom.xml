@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-12-05T05:06:02.000Z</updated>
+  <updated>2017-01-17T14:51:23.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,248 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Load And Initialization Methods</title>
+    <link href="http://yoursite.com/2017/01/17/Load-And-Initialization-Methods/"/>
+    <id>http://yoursite.com/2017/01/17/Load-And-Initialization-Methods/</id>
+    <published>2017-01-17T14:45:01.000Z</published>
+    <updated>2017-01-17T14:51:23.000Z</updated>
+    
+    <content type="html"><![CDATA[<ul>
+<li><p>摘要：浅谈<code>NSObject</code>中的<code>load</code>方法与<code>initialize</code>方法</p>
+<a id="more"></a>
+</li>
+</ul>
+<hr>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
+<li>谈到<code>NSObject</code>根类，有朋友可能便会立即想到这两个方法，这两个方法究竟是什么？它们有什么区别，又有什么共同点呢？希望下文能够帮各位朋友重温<code>load</code>方法与<code>initialize</code>方法的要点。</li>
+</ul>
+<h2 id="void-load"><a href="#void-load" class="headerlink" title="+ (void)load;"></a>+ (void)load;</h2><ul>
+<li><p>在运行时，涉及<code>load</code>的方法，大概调用过程如下图</p>
+  <img src="/2017/01/17/Load-And-Initialization-Methods/load.png" alt="Load Photo" title="Load Photo">
+</li>
+<li><p><code>load</code>方法在程序中的调用时间段：在App启动加载时调用</p>
+<ol>
+<li>程序依赖的动态链接库加载进内存</li>
+<li>加载可执行文件的所有符号、代码</li>
+<li>运行时解析被编译过的符号代码，遍历所有类与分类，按继承关系依次调用类与分类的load方法<ul>
+<li><code>load</code>方法一般在类/分类添加到运行时环境时调用，一般在<code>application:willFinishLaunchingWithOptions:</code>调用之前</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><code>Xcode - Targets - Build Phases - Complie Sources</code>中的顺序为默认<code>load</code>方法的调用顺序，但并非最终的调用顺序，因为被依赖的类会优先调用<code>load</code>方法。比如子类B是父类A的子类，当把子类B放在<code>Complie Sources</code>的第一个文件时，编译运行后，会发现首先是父类的<code>load</code>方法先调用，然后再是子类的<code>load</code>方法调用，详细调用顺序请见下文</p>
+</li>
+<li><p><code>load</code>方法中会自动加锁，保证线程安全</p>
+</li>
+<li><p>调用顺序：<strong>依赖的类会先调用，即调用子类时，会先调用父类；分类最后调用，不会覆盖<code>load</code>方法</strong></p>
+<ul>
+<li>简析：因为<code>load</code>方法在运行时并不是通过消息发送(<code>objc_msgSend</code>)，而是通过函数指针来实现的。所以对于一个有继承关系的类，若子类中的<code>load</code>方法为空实现，则父类的<code>load</code>方法除因依赖问题被调用一次外，不会再次被调用。同理，因为不是走消息发送的原因，所以如果在分类中重写<code>load</code>方法，分类中的<code>load</code>方法并不会像其他方法一样覆盖原类的<code>load</code>方法，而是在原类<code>load</code>方法执行后执行</li>
+<li>例子A：假设分类B+C是子类B的分类，分类含有<code>load</code>方法。而子类B是父类A的子类，在<code>AppDelegate.m</code>中创建一个子类B对象，则load方法调用顺序如下：<ol>
+<li>调用父类A的<code>load</code>方法</li>
+<li>调用子类B的<code>load</code>方法</li>
+<li>调用分类B+C的<code>load</code>方法</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>一般应用场景</p>
+<ul>
+<li><a href="http://tech.glowing.com/cn/method-swizzling-aop/" target="_blank" rel="external">在<code>load</code>方法中实现<code>method_swizzle</code> - @Glow 技术团队博客</a></li>
+<li><a href="http://blog.sunnyxx.com/2015/03/09/notification-once/" target="_blank" rel="external">瘦身<code>AppDelegate</code> - @sunnyxx的技术博客</a></li>
+<li>用于判断类/分类是否正确的加载</li>
+</ul>
+</li>
+</ul>
+<h2 id="void-initialize"><a href="#void-initialize" class="headerlink" title="+ (void)initialize;"></a>+ (void)initialize;</h2><ul>
+<li><p>在运行时中，涉及<code>initialize</code>的方法，大概调用过程如下图</p>
+  <img src="/2017/01/17/Load-And-Initialization-Methods/initialize.png" alt="Initialize Photo" title="Initialize Photo">
+</li>
+<li><p><code>initialize</code>方法在程序中的调用时间段：第一次主动调用当前类时，即<code>initialize</code>方法永远是类收到的第一个消息。注意，上文提及的load方法因为是通过函数指针调用，并不是走消息发送的途径，所以尽管<code>load</code>方法在<code>initialize</code>方法调用前调用，但<code>load</code>方法依然不能称作第一个消息</p>
+</li>
+<li><p><code>initialize</code>方法在线程安全的环境中执行，即只有执行<code>initialize</code>的那个线程可以操作类/类实例，其他线程都会被阻塞，等待<code>initialize</code>方法执行完</p>
+</li>
+<li><p>调用顺序：<strong>依赖的类会先调用，即调用子类时，会先调用父类；当子类空实现时，会再次调用父类方法；分类会覆盖<code>load</code>方法</strong></p>
+<ul>
+<li><p>简析：因为<code>initialize</code>方法在运行时是通过消息发送(<code>objc_msgSend</code>)来实现的。所以对于一个有继承关系的类，如果子类中的<code>initialize</code>方法为空实现，则父类的<code>initialize</code>方法会被自动调用（等价于我们系统帮我们默认在空实现中写了<code>[super initialize]</code>）。同理，因为消息发送的原因，所以子类分类如果分类中重写<code>initialize</code>方法，分类中的<code>initialize</code>方法会像其他方法一样覆盖子类的<code>initialize</code>方法。</p>
+</li>
+<li><p>例子B：假设子类B是父类A的子类，B中<code>initialize</code>方法为空实现，在<code>AppDelegate.m</code>中创建一个子类B对象，则<code>initialize</code>方法调用顺序如下：</p>
+<ol>
+<li>调用父类A的<code>initialize</code>方法</li>
+<li>再次调用父类A的<code>initialize</code>方法</li>
+<li>调用子类B自身的<code>initialize</code>方法</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>例子B补充：由于在父类A中，<code>initialize</code>方法会被调用两次，可在父类A使用以下代码，避免父类A的<code>initialize</code>方法多次执行初始化代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if (self == [ParentA Class]) &#123;</div><div class="line">  	// initialize</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>例子C：假设分类B+C是子类B的分类，分类含有<code>initialize</code>方法，但该方法不含<code>[super initialize]</code>。而子类B是父类A的子类，子类B中<code>initialize</code>方法为非空实现，在<code>AppDelegate.m</code>中创建一个子类B对象，则<code>initialize</code>方法调用顺序如下：</p>
+<ol>
+<li>调用父类A的<code>initialize</code>方法</li>
+<li>调用分类B+C的<code>initialize</code>方法（注意，由于我们没写<code>[super initialize]</code>，所以仅调用一次父类<code>initialize</code>方法，系统不会自动为我们增加该语句）</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>一般应用场景</p>
+<ul>
+<li><p>用于初始化无法直接初始化的全局状态的<code>static</code>变量，如下，<code>NSArray</code>无法直接初始化，只能在<code>initialize</code>方法中对其进行初始化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">static NSArray *kSomeDatas;</div><div class="line">@implementation</div><div class="line">+ (void)initialize &#123;</div><div class="line">   	if (self == [ParentA Class]) &#123;</div><div class="line"> 			kSomeDatas = [NSArray array];</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">@end</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>​</p>
+</li>
+</ul>
+<h2 id="对比表格"><a href="#对比表格" class="headerlink" title="对比表格"></a>对比表格</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">对比点</th>
+<th style="text-align:center"><code>load</code>方法</th>
+<th style="text-align:center"><code>initialize</code>方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">是否所有类都会调用</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">什么情况下会被调用</td>
+<td style="text-align:center">只要类所在的文件夹被引用</td>
+<td style="text-align:center">只要类的方法被调用</td>
+</tr>
+<tr>
+<td style="text-align:center">什么时候调用</td>
+<td style="text-align:center">被添加到运行时环境时</td>
+<td style="text-align:center">收到消息时/永远不调用</td>
+</tr>
+<tr>
+<td style="text-align:center">在<code>main</code>方法前/后调用</td>
+<td style="text-align:center">前</td>
+<td style="text-align:center">后</td>
+</tr>
+<tr>
+<td style="text-align:center">调用时运行时环境</td>
+<td style="text-align:center">脆弱的运行时环境，自动释放池尚未建立</td>
+<td style="text-align:center">完整的运行时环境</td>
+</tr>
+<tr>
+<td style="text-align:center">调用本质</td>
+<td style="text-align:center">函数指针调用</td>
+<td style="text-align:center">消息发送(objc_msgSend)</td>
+</tr>
+<tr>
+<td style="text-align:center">系统是否最多调用一次</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">否，父类的可能被执行多次</td>
+</tr>
+<tr>
+<td style="text-align:center">空实现时，自动调用父类实现</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">父类、子类、分类的调用顺序</td>
+<td style="text-align:center">父类 -&gt; 子类 -&gt; 分类</td>
+<td style="text-align:center">父类 -&gt; 分类/子类</td>
+</tr>
+<tr>
+<td style="text-align:center">是否线程安全</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">是</td>
+</tr>
+</tbody>
+</table>
+<h2 id="禁忌点"><a href="#禁忌点" class="headerlink" title="禁忌点"></a>禁忌点</h2><ul>
+<li><code>load</code>方法<ul>
+<li>不要在<code>load</code>方法中滥用其他类<ul>
+<li>这是因为我们无法判断各个类的载入顺序，有可能会导致依赖环</li>
+</ul>
+</li>
+<li>不要在<code>load</code>方法中滥用需要<code>Autoreleasepool</code>的方法，如<code>[NSArray array]</code>等方法<ul>
+<li>这是因为此时运行时环境脆弱，<code>Autoreleasepool</code>尚未加载，如果确实要使用，需使用<code>@Autoreleasepool</code>代码块将其包围</li>
+</ul>
+</li>
+<li>不要在<code>load</code>方法中包含复杂的代码，即使用时不能重度依赖该方法<ul>
+<li>这是因为过于复杂的<code>load</code>方法会阻塞线程，导致程序无响应</li>
+</ul>
+</li>
+<li>不要在<code>load</code>方法中包含等待锁/调用可能会加锁的方法<ul>
+<li>这是因为我们无法判断各个类的载入顺序，有可能会导致死锁/饥饿</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>initialize</code>方法<ul>
+<li>绝不应该通过代码直接调用<code>initialize</code>方法<ul>
+<li>这是因为我们应该保证<code>initialize</code>方法由系统调用，保证其仅调用一次</li>
+</ul>
+</li>
+<li>不要在<code>initialize</code>方法中包含复杂的代码，即使用时不能重度依赖该方法<ul>
+<li>这是因为其有可能阻塞UI线程</li>
+</ul>
+</li>
+<li>不要在<code>initialize</code>方法中滥用其他类<ul>
+<li>这是因为在本类还没有完全初始化的时候，却又被自身调用的类调用了，即有可能会导致依赖环</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p><code>load</code>方法与<code>initialize</code>方法可以<code>main</code>方法为分界线，将调用顺序划分如下图，注意，其中<code>initialize</code>方法也有可能不调用</p>
+  <img src="/2017/01/17/Load-And-Initialization-Methods/main.png" alt="Main Photo" title="Main Photo">
+</li>
+<li><p><code>load</code>在运行时通过函数指针调用，<code>initialize</code>方法通过消息发送调用，这直接导致了他们之间的差异</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>本文用到的代码下载<ul>
+<li><a href="https://github.com/SeaHub/CodeSample/tree/master/Code/DeepingLoadAndInitialize" target="_blank" rel="external"><strong>Github Repo - DeepingLoadAndInitialize</strong></a></li>
+<li><a href="https://github.com/RetVal/objc-runtime" target="_blank" rel="external"><strong>Github Repo - ObjC-Runtime by @RetVal</strong></a></li>
+<li>运行环境：Xcode 8.2.1(8C1002)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>Last Edited：2016.1.17</li>
+<li>Author：@Seahub</li>
+<li>Please <a href="Seahubc@qq.com">contact me</a> if you want to share this Article, 3Q~</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;摘要：浅谈&lt;code&gt;NSObject&lt;/code&gt;中的&lt;code&gt;load&lt;/code&gt;方法与&lt;code&gt;initialize&lt;/code&gt;方法&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="ObjC" scheme="http://yoursite.com/categories/ObjC/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/ObjC/iOS/"/>
+    
+    
+      <category term="Seahub" scheme="http://yoursite.com/tags/Seahub/"/>
+    
+      <category term="ObjC" scheme="http://yoursite.com/tags/ObjC/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Top-Level Const And Low-Level Const</title>
     <link href="http://yoursite.com/2016/12/05/Top-Level-Const-And-Low-Level-Const/"/>
     <id>http://yoursite.com/2016/12/05/Top-Level-Const-And-Low-Level-Const/</id>
     <published>2016-12-05T04:41:52.000Z</published>
-    <updated>2016-12-05T05:06:02.000Z</updated>
+    <updated>2016-12-05T05:06:42.000Z</updated>
     
     <content type="html"><![CDATA[<ul>
 <li><p>摘要：ObjC Const 小坑总结</p>
@@ -93,7 +330,7 @@
 </li>
 <li><p>讨论</p>
 <ul>
-<li><p>ObjC与C++的const用法是否一样？很幸运，是的。下述三种<code>const</code>用法均与C++的用法一样</p>
+<li><p>ObjC与C++的<code>const</code>用法是否一样？很幸运，是的。下述三种<code>const</code>用法均与C++的用法一样</p>
 <img src="/2016/12/05/Top-Level-Const-And-Low-Level-Const/normalConst.png" alt="normal" title="normal">
 </li>
 <li><p>那我们要讨论的是什么呢？我们要讨论的是，当指针遇上对象，我们究竟需要什么样的<code>const</code>来达到<code>#define</code>的效果</p>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>Load And Initialization Methods | Words Of Life</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Words Of Life">
+    <meta name="author" content="Seahub">
+    <meta name="description" content="Record the things appearing in my life" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Words Of Life" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="https://github.com/SeaHub/BlogOfComputerNetwork" target="_BLANK" class="animsition-link">BlogOfComputerNetwork</a></li>
+                    
+                        <li><a href="https://github.com/SeaHub/PigRaising" target="_BLANK" class="animsition-link">PigRaising</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/C/" class="animsition-link">C#<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/ObjC/" class="animsition-link">ObjC<small>(3)</small></a></li>
+				    
+				    <li><a href="/categories/ObjC/iOS/" class="animsition-link">iOS<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/C/代码优化/" class="animsition-link">代码优化<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/小记/" class="animsition-link">小记<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/工具/" class="animsition-link">工具<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/微信小程序/" class="animsition-link">微信小程序<small>(1)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Words Of Life</a></li>
+                            <li class="nolink"><span>Always Be Concentrated.</span></li>
+                            
+                            <li><a href="https://github.com/SeaHub" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            
+                            
+                            
+                            <li class="nolink"><span>Enjoy!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2017-01-17T14:45:01.000Z" itemprop="datePublished">
+          2017-01-17
+      </time>
+    
+    
+    | 
+    <a href='/tags/Seahub/'>Seahub</a>,
+    
+    <a href='/tags/ObjC/'>ObjC</a>,
+    
+    <a href='/tags/iOS/'>iOS</a>
+    
+    
+</span>
+                <h1>Load And Initialization Methods</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<ul>
+<li><p>摘要：浅谈<code>NSObject</code>中的<code>load</code>方法与<code>initialize</code>方法</p>
+<a id="more"></a>
+</li>
+</ul>
+<hr>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
+<li>谈到<code>NSObject</code>根类，有朋友可能便会立即想到这两个方法，这两个方法究竟是什么？它们有什么区别，又有什么共同点呢？希望下文能够帮各位朋友重温<code>load</code>方法与<code>initialize</code>方法的要点。</li>
+</ul>
+<h2 id="void-load"><a href="#void-load" class="headerlink" title="+ (void)load;"></a>+ (void)load;</h2><ul>
+<li><p>在运行时，涉及<code>load</code>的方法，大概调用过程如下图</p>
+  <img src="/2017/01/17/Load-And-Initialization-Methods/load.png" alt="Load Photo" title="Load Photo">
+</li>
+<li><p><code>load</code>方法在程序中的调用时间段：在App启动加载时调用</p>
+<ol>
+<li>程序依赖的动态链接库加载进内存</li>
+<li>加载可执行文件的所有符号、代码</li>
+<li>运行时解析被编译过的符号代码，遍历所有类与分类，按继承关系依次调用类与分类的load方法<ul>
+<li><code>load</code>方法一般在类/分类添加到运行时环境时调用，一般在<code>application:willFinishLaunchingWithOptions:</code>调用之前</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><code>Xcode - Targets - Build Phases - Complie Sources</code>中的顺序为默认<code>load</code>方法的调用顺序，但并非最终的调用顺序，因为被依赖的类会优先调用<code>load</code>方法。比如子类B是父类A的子类，当把子类B放在<code>Complie Sources</code>的第一个文件时，编译运行后，会发现首先是父类的<code>load</code>方法先调用，然后再是子类的<code>load</code>方法调用，详细调用顺序请见下文</p>
+</li>
+<li><p><code>load</code>方法中会自动加锁，保证线程安全</p>
+</li>
+<li><p>调用顺序：<strong>依赖的类会先调用，即调用子类时，会先调用父类；分类最后调用，不会覆盖<code>load</code>方法</strong></p>
+<ul>
+<li>简析：因为<code>load</code>方法在运行时并不是通过消息发送(<code>objc_msgSend</code>)，而是通过函数指针来实现的。所以对于一个有继承关系的类，若子类中的<code>load</code>方法为空实现，则父类的<code>load</code>方法除因依赖问题被调用一次外，不会再次被调用。同理，因为不是走消息发送的原因，所以如果在分类中重写<code>load</code>方法，分类中的<code>load</code>方法并不会像其他方法一样覆盖原类的<code>load</code>方法，而是在原类<code>load</code>方法执行后执行</li>
+<li>例子A：假设分类B+C是子类B的分类，分类含有<code>load</code>方法。而子类B是父类A的子类，在<code>AppDelegate.m</code>中创建一个子类B对象，则load方法调用顺序如下：<ol>
+<li>调用父类A的<code>load</code>方法</li>
+<li>调用子类B的<code>load</code>方法</li>
+<li>调用分类B+C的<code>load</code>方法</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>一般应用场景</p>
+<ul>
+<li><a href="http://tech.glowing.com/cn/method-swizzling-aop/" target="_blank" rel="external">在<code>load</code>方法中实现<code>method_swizzle</code> - @Glow 技术团队博客</a></li>
+<li><a href="http://blog.sunnyxx.com/2015/03/09/notification-once/" target="_blank" rel="external">瘦身<code>AppDelegate</code> - @sunnyxx的技术博客</a></li>
+<li>用于判断类/分类是否正确的加载</li>
+</ul>
+</li>
+</ul>
+<h2 id="void-initialize"><a href="#void-initialize" class="headerlink" title="+ (void)initialize;"></a>+ (void)initialize;</h2><ul>
+<li><p>在运行时中，涉及<code>initialize</code>的方法，大概调用过程如下图</p>
+  <img src="/2017/01/17/Load-And-Initialization-Methods/initialize.png" alt="Initialize Photo" title="Initialize Photo">
+</li>
+<li><p><code>initialize</code>方法在程序中的调用时间段：第一次主动调用当前类时，即<code>initialize</code>方法永远是类收到的第一个消息。注意，上文提及的load方法因为是通过函数指针调用，并不是走消息发送的途径，所以尽管<code>load</code>方法在<code>initialize</code>方法调用前调用，但<code>load</code>方法依然不能称作第一个消息</p>
+</li>
+<li><p><code>initialize</code>方法在线程安全的环境中执行，即只有执行<code>initialize</code>的那个线程可以操作类/类实例，其他线程都会被阻塞，等待<code>initialize</code>方法执行完</p>
+</li>
+<li><p>调用顺序：<strong>依赖的类会先调用，即调用子类时，会先调用父类；当子类空实现时，会再次调用父类方法；分类会覆盖<code>load</code>方法</strong></p>
+<ul>
+<li><p>简析：因为<code>initialize</code>方法在运行时是通过消息发送(<code>objc_msgSend</code>)来实现的。所以对于一个有继承关系的类，如果子类中的<code>initialize</code>方法为空实现，则父类的<code>initialize</code>方法会被自动调用（等价于我们系统帮我们默认在空实现中写了<code>[super initialize]</code>）。同理，因为消息发送的原因，所以子类分类如果分类中重写<code>initialize</code>方法，分类中的<code>initialize</code>方法会像其他方法一样覆盖子类的<code>initialize</code>方法。</p>
+</li>
+<li><p>例子B：假设子类B是父类A的子类，B中<code>initialize</code>方法为空实现，在<code>AppDelegate.m</code>中创建一个子类B对象，则<code>initialize</code>方法调用顺序如下：</p>
+<ol>
+<li>调用父类A的<code>initialize</code>方法</li>
+<li>再次调用父类A的<code>initialize</code>方法</li>
+<li>调用子类B自身的<code>initialize</code>方法</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>例子B补充：由于在父类A中，<code>initialize</code>方法会被调用两次，可在父类A使用以下代码，避免父类A的<code>initialize</code>方法多次执行初始化代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if (self == [ParentA Class]) &#123;</div><div class="line">  	// initialize</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>例子C：假设分类B+C是子类B的分类，分类含有<code>initialize</code>方法，但该方法不含<code>[super initialize]</code>。而子类B是父类A的子类，子类B中<code>initialize</code>方法为非空实现，在<code>AppDelegate.m</code>中创建一个子类B对象，则<code>initialize</code>方法调用顺序如下：</p>
+<ol>
+<li>调用父类A的<code>initialize</code>方法</li>
+<li>调用分类B+C的<code>initialize</code>方法（注意，由于我们没写<code>[super initialize]</code>，所以仅调用一次父类<code>initialize</code>方法，系统不会自动为我们增加该语句）</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>一般应用场景</p>
+<ul>
+<li><p>用于初始化无法直接初始化的全局状态的<code>static</code>变量，如下，<code>NSArray</code>无法直接初始化，只能在<code>initialize</code>方法中对其进行初始化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">static NSArray *kSomeDatas;</div><div class="line">@implementation</div><div class="line">+ (void)initialize &#123;</div><div class="line">   	if (self == [ParentA Class]) &#123;</div><div class="line"> 			kSomeDatas = [NSArray array];</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">@end</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>​</p>
+</li>
+</ul>
+<h2 id="对比表格"><a href="#对比表格" class="headerlink" title="对比表格"></a>对比表格</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">对比点</th>
+<th style="text-align:center"><code>load</code>方法</th>
+<th style="text-align:center"><code>initialize</code>方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">是否所有类都会调用</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">什么情况下会被调用</td>
+<td style="text-align:center">只要类所在的文件夹被引用</td>
+<td style="text-align:center">只要类的方法被调用</td>
+</tr>
+<tr>
+<td style="text-align:center">什么时候调用</td>
+<td style="text-align:center">被添加到运行时环境时</td>
+<td style="text-align:center">收到消息时/永远不调用</td>
+</tr>
+<tr>
+<td style="text-align:center">在<code>main</code>方法前/后调用</td>
+<td style="text-align:center">前</td>
+<td style="text-align:center">后</td>
+</tr>
+<tr>
+<td style="text-align:center">调用时运行时环境</td>
+<td style="text-align:center">脆弱的运行时环境，自动释放池尚未建立</td>
+<td style="text-align:center">完整的运行时环境</td>
+</tr>
+<tr>
+<td style="text-align:center">调用本质</td>
+<td style="text-align:center">函数指针调用</td>
+<td style="text-align:center">消息发送(objc_msgSend)</td>
+</tr>
+<tr>
+<td style="text-align:center">系统是否最多调用一次</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">否，父类的可能被执行多次</td>
+</tr>
+<tr>
+<td style="text-align:center">空实现时，自动调用父类实现</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">父类、子类、分类的调用顺序</td>
+<td style="text-align:center">父类 -&gt; 子类 -&gt; 分类</td>
+<td style="text-align:center">父类 -&gt; 分类/子类</td>
+</tr>
+<tr>
+<td style="text-align:center">是否线程安全</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">是</td>
+</tr>
+</tbody>
+</table>
+<h2 id="禁忌点"><a href="#禁忌点" class="headerlink" title="禁忌点"></a>禁忌点</h2><ul>
+<li><code>load</code>方法<ul>
+<li>不要在<code>load</code>方法中滥用其他类<ul>
+<li>这是因为我们无法判断各个类的载入顺序，有可能会导致依赖环</li>
+</ul>
+</li>
+<li>不要在<code>load</code>方法中滥用需要<code>Autoreleasepool</code>的方法，如<code>[NSArray array]</code>等方法<ul>
+<li>这是因为此时运行时环境脆弱，<code>Autoreleasepool</code>尚未加载，如果确实要使用，需使用<code>@Autoreleasepool</code>代码块将其包围</li>
+</ul>
+</li>
+<li>不要在<code>load</code>方法中包含复杂的代码，即使用时不能重度依赖该方法<ul>
+<li>这是因为过于复杂的<code>load</code>方法会阻塞线程，导致程序无响应</li>
+</ul>
+</li>
+<li>不要在<code>load</code>方法中包含等待锁/调用可能会加锁的方法<ul>
+<li>这是因为我们无法判断各个类的载入顺序，有可能会导致死锁/饥饿</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>initialize</code>方法<ul>
+<li>绝不应该通过代码直接调用<code>initialize</code>方法<ul>
+<li>这是因为我们应该保证<code>initialize</code>方法由系统调用，保证其仅调用一次</li>
+</ul>
+</li>
+<li>不要在<code>initialize</code>方法中包含复杂的代码，即使用时不能重度依赖该方法<ul>
+<li>这是因为其有可能阻塞UI线程</li>
+</ul>
+</li>
+<li>不要在<code>initialize</code>方法中滥用其他类<ul>
+<li>这是因为在本类还没有完全初始化的时候，却又被自身调用的类调用了，即有可能会导致依赖环</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p><code>load</code>方法与<code>initialize</code>方法可以<code>main</code>方法为分界线，将调用顺序划分如下图，注意，其中<code>initialize</code>方法也有可能不调用</p>
+  <img src="/2017/01/17/Load-And-Initialization-Methods/main.png" alt="Main Photo" title="Main Photo">
+</li>
+<li><p><code>load</code>在运行时通过函数指针调用，<code>initialize</code>方法通过消息发送调用，这直接导致了他们之间的差异</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>本文用到的代码下载<ul>
+<li><a href="https://github.com/SeaHub/CodeSample/tree/master/Code/DeepingLoadAndInitialize" target="_blank" rel="external"><strong>Github Repo - DeepingLoadAndInitialize</strong></a></li>
+<li><a href="https://github.com/RetVal/objc-runtime" target="_blank" rel="external"><strong>Github Repo - ObjC-Runtime by @RetVal</strong></a></li>
+<li>运行环境：Xcode 8.2.1(8C1002)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>Last Edited：2016.1.17</li>
+<li>Author：@Seahub</li>
+<li>Please <a href="Seahubc@qq.com">contact me</a> if you want to share this Article, 3Q~</li>
+</ul>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2016/12/05/Top-Level-Const-And-Low-Level-Const/">
+        Top-Level Const And Low-Level Const →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo"></div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Seahub. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/SeaHub" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    
+                    
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/01/17/Load-And-Initialization-Methods/</loc>
+    
+    <lastmod>2017-01-17T14:51:23.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2016/12/05/Top-Level-Const-And-Low-Level-Const/</loc>
     
-    <lastmod>2016-12-05T05:06:02.000Z</lastmod>
+    <lastmod>2016-12-05T05:06:42.000Z</lastmod>
     
   </url>
   
