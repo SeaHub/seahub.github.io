@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>Simple Factory Pattern | Words Of Life</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Words Of Life">
+    <meta name="author" content="Seahub">
+    <meta name="description" content="Record the things appearing in my life" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Words Of Life" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="https://github.com/SeaHub/BlogOfComputerNetwork" target="_BLANK" class="animsition-link">BlogOfComputerNetwork</a></li>
+                    
+                        <li><a href="https://github.com/SeaHub/PigRaising" target="_BLANK" class="animsition-link">PigRaising</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/C/" class="animsition-link">C#<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/ObjC/" class="animsition-link">ObjC<small>(3)</small></a></li>
+				    
+				    <li><a href="/categories/Objc/" class="animsition-link">Objc<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/ObjC/iOS/" class="animsition-link">iOS<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/C/代码优化/" class="animsition-link">代码优化<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/小记/" class="animsition-link">小记<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/工具/" class="animsition-link">工具<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/微信小程序/" class="animsition-link">微信小程序<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Objc/设计模式/" class="animsition-link">设计模式<small>(1)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Words Of Life</a></li>
+                            <li class="nolink"><span>Always Be Concentrated.</span></li>
+                            
+                            <li><a href="https://github.com/SeaHub" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            
+                            
+                            
+                            <li class="nolink"><span>Enjoy!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2017-02-17T15:04:52.000Z" itemprop="datePublished">
+          2017-02-17
+      </time>
+    
+    
+    | 
+    <a href='/tags/Seahub/'>Seahub</a>,
+    
+    <a href='/tags/ObjC/'>ObjC</a>,
+    
+    <a href='/tags/iOS/'>iOS</a>,
+    
+    <a href='/tags/设计模式/'>设计模式</a>
+    
+    
+</span>
+                <h1>Simple Factory Pattern</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<ul>
+<li><p>摘要：利用Objc实现简单工厂模式</p>
+<a id="more"></a>
+</li>
+</ul>
+<hr>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
+<li>最近重阅设计模式相关的书籍，阅读时无不感慨前人的智慧，希望以此文为头，记下与设计模式相关的笔记</li>
+</ul>
+<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>简单工厂模式的介绍<ul>
+<li>基础理论</li>
+<li>深入理解</li>
+<li>UML图</li>
+<li>优与劣</li>
+</ul>
+</li>
+<li>简单工厂模式的使用实例</li>
+<li>简单工厂模式在系统框架中的应用</li>
+</ul>
+<hr>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h4 id="简单工厂模式单介绍"><a href="#简单工厂模式单介绍" class="headerlink" title="简单工厂模式单介绍"></a>简单工厂模式单介绍</h4><ul>
+<li>基础理论<blockquote>
+<p>简单工厂模式是属于<strong>创建型</strong>模式，又叫做<strong>静态工厂方法</strong>（Static Factory Method）模式，但不属于23种GOF设计模式之一。简单工厂模式是由一个工厂对象决定创建出哪一种产品类的实例。简单工厂模式是工厂模式家族中最简单实用的模式，可以理解为是不同工厂模式的一个特殊实现</p>
+<p>​                                                                    —— <a href="http://baike.baidu.com/link?url=MuiHpZoo9DF58mVTz7UMoEyEiySMqoxSmDc3aN2ywj-SWAPjcqPowT-4YOE0V__UgiLM4QjQ7UTxbgJvhGKt79VHCeuNpRqXeHN3rG4jVHi-EJDJ8PMzcb_fqY9ijo6rZfFxdoLEM7IO5aPz7Vvm5_" target="_blank" rel="external">百度百科</a></p>
+</blockquote>
+</li>
+<li>深入理解<ul>
+<li>所谓简单工厂模式，本质就是<strong>根据传入的参数进行判断，动态选择不同的子类进行初始化</strong>。而为了方便对外使用，我们只暴露一个最最简单易用的父类 / 接口 / 工厂类。</li>
+<li>根据上述定义，我认为简单工厂模式有以下两种：<ul>
+<li>形式I：<strong>抽象父类 + 具体子类</strong>（静态工厂方法定义在抽象父类中，该形式又被称作<strong>类簇模式</strong>，见UML图上半部分）</li>
+<li>形式II：<strong>工厂类 + 抽象父类 / 接口 + 具体子类</strong>（静态工厂方法定义在工厂类中，见UML图下半部分）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>UML图<ul>
+<li><img src="/2017/02/17/Simple-Factory-Pattern/UML.png" alt="UML" title="UML"></li>
+</ul>
+</li>
+<li>优与劣<ul>
+<li>优：隐藏了实现类，用户在使用的时候无需知道对象如何构建的，对外仅暴露了必要的接口。 </li>
+<li>劣：扩展时违反开闭原则（OCP，Open Closed Principle），当新增加子类的时候，需要修改在抽象父类 / 工厂类中的静态工厂方法。</li>
+</ul>
+</li>
+</ul>
+<h4 id="简单工厂模式的使用实例"><a href="#简单工厂模式的使用实例" class="headerlink" title="简单工厂模式的使用实例"></a>简单工厂模式的使用实例</h4><ul>
+<li><p>下面以一个简单的二元加减乘除计算器为例，讲述简单工厂模式的应用</p>
+<ul>
+<li><p>创建父类：在本例中，父类为基础二元算术运算类</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Operation.h</span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSUInteger</span>, OperationType) &#123;</div><div class="line">    OperationTypeAdd,</div><div class="line">    OperationTypeSub,</div><div class="line">    OperationTypeMul,</div><div class="line">    OperationTypeDiv,</div><div class="line">    OperationTypeDefault</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="built_in">NSInteger</span> OperandType;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Operation</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line">+ (<span class="keyword">instancetype</span>)operationWithType:(OperationType)type;</div><div class="line">- (OperandType)calculate;</div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>, <span class="keyword">readwrite</span>) OperandType operandA;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>, <span class="keyword">readwrite</span>) OperandType operandB;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>简单实现父类：本例采用<strong>形式I</strong>的简单工厂模式，故工厂方法放在父类中</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Operation.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">"Operation.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Operation</span></span></div><div class="line"></div><div class="line">+ (<span class="keyword">instancetype</span>)operationWithType:(OperationType)type &#123;</div><div class="line">    <span class="keyword">switch</span> (type) &#123;</div><div class="line">        <span class="keyword">case</span> OperationTypeAdd:</div><div class="line">            <span class="keyword">return</span> [[OperationAdd alloc] init];</div><div class="line">        <span class="keyword">case</span> OperationTypeSub:</div><div class="line">            <span class="keyword">return</span> [[OperationSub alloc] init];</div><div class="line">        <span class="keyword">case</span> OperationTypeMul:</div><div class="line">            <span class="keyword">return</span> [[OperationMul alloc] init];</div><div class="line">        <span class="keyword">case</span> OperationTypeDiv:</div><div class="line">            <span class="keyword">return</span> [[OperationDiv alloc] init];</div><div class="line">        <span class="keyword">case</span> OperationTypeDefault:</div><div class="line">            <span class="keyword">return</span> [[[<span class="keyword">self</span> <span class="keyword">class</span>] alloc] init];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (OperandType)calculate &#123;</div><div class="line">    <span class="comment">// virtual implement</span></div><div class="line">    <span class="built_in">NSAssert</span>(<span class="literal">NO</span>, <span class="string">@"virtual implement shouldn`t be called by"</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>创建继承于父类的子类：本例中，子类为具体的操作类，负责实现操作运算。此处子类重写父类方法，以便合理使用多态</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// OperationAdd.h</span></div><div class="line"><span class="meta">#import <span class="meta-string">"Operation.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">OperationAdd</span> : <span class="title">Operation</span></span></div><div class="line"></div><div class="line">- (OperandType)calculate;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line">  </div><div class="line"><span class="comment">// OperationAdd.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">"OperationAdd.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">OperationAdd</span></span></div><div class="line"></div><div class="line">- (OperandType)calculate &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.operandA + <span class="keyword">super</span>.operandB;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// OperationSub.h</span></div><div class="line"><span class="meta">#import <span class="meta-string">"Operation.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">OperationSub</span> : <span class="title">Operation</span></span></div><div class="line"></div><div class="line">- (OperandType)calculate;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line">  </div><div class="line"><span class="meta">#import <span class="meta-string">"OperationSub.h"</span></span></div><div class="line"></div><div class="line"><span class="comment">// OperationSub.m</span></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">OperationSub</span></span></div><div class="line"></div><div class="line">- (OperandType)calculate &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.operandA - <span class="keyword">super</span>.operandB;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// OperationMul.h</span></div><div class="line"><span class="meta">#import <span class="meta-string">"Operation.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">OperationMul</span> : <span class="title">Operation</span></span></div><div class="line"></div><div class="line">- (OperandType)calculate;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">// OperationSub.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">"OperationSub.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">OperationSub</span></span></div><div class="line"></div><div class="line">- (OperandType)calculate &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.operandA - <span class="keyword">super</span>.operandB;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// OperationDiv.h</span></div><div class="line"><span class="meta">#import <span class="meta-string">"Operation.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">OperationDiv</span> : <span class="title">Operation</span></span></div><div class="line"></div><div class="line">- (OperandType)calculate;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">// OperationDiv.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">"OperationDiv.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">OperationDiv</span></span></div><div class="line"></div><div class="line">- (OperandType)calculate &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">super</span>.operandB != <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.operandA / <span class="keyword">super</span>.operandB;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">NSIntegerMax</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>实现简单工厂方法：实现父类中的简单工厂方法，根据类型判断返回的实例</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  Operation.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">"OperationAdd.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"OperationSub.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"OperationMul.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"OperationDiv.h"</span></span></div><div class="line"></div><div class="line">+ (<span class="keyword">instancetype</span>)operationWithType:(OperationType)type &#123;</div><div class="line">    <span class="keyword">switch</span> (type) &#123;</div><div class="line">        <span class="keyword">case</span> OperationTypeAdd:</div><div class="line">            <span class="keyword">return</span> [[OperationAdd alloc] init];</div><div class="line">        <span class="keyword">case</span> OperationTypeSub:</div><div class="line">            <span class="keyword">return</span> [[OperationSub alloc] init];</div><div class="line">        <span class="keyword">case</span> OperationTypeMul:</div><div class="line">            <span class="keyword">return</span> [[OperationMul alloc] init];</div><div class="line">        <span class="keyword">case</span> OperationTypeDiv:</div><div class="line">            <span class="keyword">return</span> [[OperationDiv alloc] init];</div><div class="line">        <span class="keyword">case</span> OperationTypeDefault:</div><div class="line">            <span class="keyword">return</span> [[[<span class="keyword">self</span> <span class="keyword">class</span>] alloc] init];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>至此，简单工厂模式实现完毕</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="简单工厂模式在系统框架中的应用"><a href="#简单工厂模式在系统框架中的应用" class="headerlink" title="简单工厂模式在系统框架中的应用"></a>简单工厂模式在系统框架中的应用</h4><ul>
+<li><p>NSString</p>
+<ul>
+<li><p>我们查阅<code>NSString</code> API文档时会发现，有下面这一段话</p>
+<blockquote>
+<p>The objects you create using <code>NSString</code> and <code>NSMutableString</code> are referred to as string objects (or, when no confusion will result, merely as strings). The term C string refers to the standard <code>char *</code> type. Because of the nature of class clusters, string objects aren’t actual instances of the <code>NSString</code> or <code>NSMutableString</code> classes but of one of their private subclasses. Although a string object’s class is private, its interface is public, as declared by these abstract superclasses, <code>NSString</code> and <code>NSMutableString</code>. The string classes adopt the <a href="https://developer.apple.com/reference/foundation/nscopying" target="_blank" rel="external"><code>NSCopying</code></a> and <a href="https://developer.apple.com/reference/foundation/nsmutablecopying" target="_blank" rel="external"><code>NSMutableCopying</code></a> protocols, making it convenient to convert a string of one type to the other.</p>
+<p>​                                                    —— <a href="https://developer.apple.com/reference/foundation/nsstring" target="_blank" rel="external">NSString API Reference</a></p>
+</blockquote>
+</li>
+<li><p><code>NSString</code>类是一个类簇类。所谓类簇类，实际上是一个隐含着许多私有类的类。一般类簇类都带有工厂方法。我们查看<code>NSString</code>头文件，可以发现许多工厂方法（见下）。其本质亦是简单工厂模式，类簇类的私有类放在父类<code>.m</code>文件中。然后其利用传入的参数作为判断标准，生成私有类的实例，并作为<code>NSString</code>实例返回。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">instancetype</span>)string;</div><div class="line">+ (<span class="keyword">instancetype</span>)stringWithString:(<span class="built_in">NSString</span> *)string;</div><div class="line">+ (<span class="keyword">instancetype</span>)stringWithCharacters:(<span class="keyword">const</span> <span class="keyword">unichar</span> *)characters length:(<span class="built_in">NSUInteger</span>)length;</div><div class="line">+ (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)stringWithUTF8String:(<span class="keyword">const</span> <span class="keyword">char</span> *)nullTerminatedCString;</div><div class="line">+ (<span class="keyword">instancetype</span>)stringWithFormat:(<span class="built_in">NSString</span> *)format, ... <span class="built_in">NS_FORMAT_FUNCTION</span>(<span class="number">1</span>,<span class="number">2</span>);</div><div class="line">+ (<span class="keyword">instancetype</span>)localizedStringWithFormat:(<span class="built_in">NSString</span> *)format, ... <span class="built_in">NS_FORMAT_FUNCTION</span>(<span class="number">1</span>,<span class="number">2</span>);</div></pre></td></tr></table></figure>
+</li>
+<li><p>实际上，在系统框架中许多类都是以类簇的方式实现的，而以这种方式实现的类一般又含有类簇形式的简单工厂方法，因此类簇模式与简单工厂模式可谓是相得益彰。</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>总结：本文简述了简单工厂模式的理论以及实践。我认为，简单工厂模式本质是<strong>根据传入的参数进行判断，动态选择不同的子类进行初始化</strong>。只要把握好这一本质，便能理清简单工厂模式。</li>
+<li>本文代码下载<ul>
+<li><a href="https://github.com/SeaHub/CodeSample/tree/master/Code/SimpleFactoryPattern" target="_blank" rel="external">示例代码</a></li>
+<li>运行环境：Xcode 8.2.1 (8C1002)</li>
+</ul>
+</li>
+<li>推荐阅读<ul>
+<li><a href="http://www.jianshu.com/p/c60d9ffcde4b" target="_blank" rel="external">类簇(class cluster) by 摸鸡校尉</a></li>
+<li><a href="http://blog.sunnyxx.com/2014/12/18/class-cluster/" target="_blank" rel="external">从NSArray看类簇 by sunnyxx</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>Last Edited：2017.2.17</li>
+<li>Author：@Seahub</li>
+<li>Please <a href="Seahubc@qq.com">contact me</a> if you want to share this Article, 3Q~</li>
+</ul>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2017/01/17/Load-And-Initialization-Methods/">
+        Load And Initialization Methods →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo"></div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Seahub. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/SeaHub" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    
+                    
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

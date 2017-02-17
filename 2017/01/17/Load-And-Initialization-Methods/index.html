@@ -122,6 +122,8 @@
 				    
 				    <li><a href="/categories/ObjC/" class="animsition-link">ObjC<small>(3)</small></a></li>
 				    
+				    <li><a href="/categories/Objc/" class="animsition-link">Objc<small>(1)</small></a></li>
+				    
 				    <li><a href="/categories/ObjC/iOS/" class="animsition-link">iOS<small>(2)</small></a></li>
 				    
 				    <li><a href="/categories/C/代码优化/" class="animsition-link">代码优化<small>(1)</small></a></li>
@@ -131,6 +133,8 @@
 				    <li><a href="/categories/工具/" class="animsition-link">工具<small>(1)</small></a></li>
 				    
 				    <li><a href="/categories/微信小程序/" class="animsition-link">微信小程序<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Objc/设计模式/" class="animsition-link">设计模式<small>(1)</small></a></li>
 				    
 				</ul>
         	</li>
@@ -284,10 +288,6 @@
 <li>调用子类B自身的<code>initialize</code>方法</li>
 </ol>
 </li>
-</ul>
-</li>
-</ul>
-<ul>
 <li><p>例子B补充：由于在父类A中，<code>initialize</code>方法会被调用两次，可在父类A使用以下代码，避免父类A的<code>initialize</code>方法多次执行初始化代码：</p>
 <img src="/2017/01/17/Load-And-Initialization-Methods/codeA.png" alt="codeA Photo" title="codeA Photo">
 </li>
@@ -296,6 +296,8 @@
 <li>调用父类A的<code>initialize</code>方法</li>
 <li>调用分类B+C的<code>initialize</code>方法（注意，由于我们没写<code>[super initialize]</code>，所以仅调用一次父类<code>initialize</code>方法，系统不会自动为我们增加该语句）</li>
 </ol>
+</li>
+</ul>
 </li>
 </ul>
 <ul>
@@ -432,6 +434,10 @@
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2017/02/17/Simple-Factory-Pattern/" style="float: left;">
+        ← Simple Factory Pattern
+    </a>
     
     
     <a class="pull-right" href="/2016/12/05/Top-Level-Const-And-Low-Level-Const/">
