@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>Strategy Pattern | Words Of Life</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Words Of Life">
+    <meta name="author" content="Seahub">
+    <meta name="description" content="Record the things appearing in my life" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Words Of Life" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/xcode.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="https://github.com/SeaHub/BlogOfComputerNetwork" target="_BLANK" class="animsition-link">BlogOfComputerNetwork</a></li>
+                    
+                        <li><a href="https://github.com/SeaHub/PigRaising" target="_BLANK" class="animsition-link">PigRaising</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/C/" class="animsition-link">C#<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/ObjC/" class="animsition-link">ObjC<small>(3)</small></a></li>
+				    
+				    <li><a href="/categories/Objc/" class="animsition-link">Objc<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/ObjC/iOS/" class="animsition-link">iOS<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/C/代码优化/" class="animsition-link">代码优化<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/小记/" class="animsition-link">小记<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/工具/" class="animsition-link">工具<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/微信小程序/" class="animsition-link">微信小程序<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/Objc/设计模式/" class="animsition-link">设计模式<small>(2)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Words Of Life</a></li>
+                            <li class="nolink"><span>Always Be Concentrated.</span></li>
+                            
+                            <li><a href="https://github.com/SeaHub" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            
+                            
+                            
+                            <li class="nolink"><span>Enjoy!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2017-02-18T12:20:50.000Z" itemprop="datePublished">
+          2017-02-18
+      </time>
+    
+    
+    | 
+    <a href='/tags/Seahub/'>Seahub</a>,
+    
+    <a href='/tags/ObjC/'>ObjC</a>,
+    
+    <a href='/tags/iOS/'>iOS</a>,
+    
+    <a href='/tags/设计模式/'>设计模式</a>
+    
+    
+</span>
+                <h1>Strategy Pattern</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<ul>
+<li><p>摘要：利用<code>Objc</code>实现策略模式</p>
+<a id="more"></a>
+</li>
+</ul>
+<hr>
+<ul>
+<li><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>策略模式的介绍<ul>
+<li>基础理论</li>
+<li>深入理解</li>
+<li>UML图</li>
+<li>优与劣</li>
+</ul>
+</li>
+<li>策略模式的使用实例</li>
+<li>策略模式在系统框架中的应用</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h4 id="策略模式介绍"><a href="#策略模式介绍" class="headerlink" title="策略模式介绍"></a>策略模式介绍</h4><ul>
+<li><p>基础理论</p>
+<blockquote>
+<p>策略模式作为二十三种GoF软件设计模式的其中一种，指对象有某个行为，但是在不同的场景中，该行为有不同的实现算法。</p>
+<p>​                                                                    —— <a href="https://zh.wikipedia.org/wiki/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F" target="_blank" rel="external">维基百科</a></p>
+</blockquote>
+</li>
+<li><p>深入理解</p>
+<ul>
+<li>所谓策略模式，本质就是将需要使用的算法抽象成一个持有的算法对象。在构造函数中选择具体的算法初始化持有的算法对象；在原本使用算法的地方，使用该算法对象调用算法。</li>
+<li>根据上述定义，我认为策略模式有以下形式：<ul>
+<li>形式：<strong>策略上下文类 + 抽象父类 / 接口 + 具体子类</strong></li>
+</ul>
+</li>
+<li>如果单独使用策略模式，我们会需要在客户类创建具体的策略类对象，这时我们可以将策略模式与简单工厂模式结合使用，减少客户端的判断代码，两者配套食用，味道更佳！</li>
+</ul>
+</li>
+<li><p>UML图</p>
+<ul>
+<li><img src="/2017/02/18/Strategy-Pattern/UML.png" alt="UML" title="UML">
+</li>
+</ul>
+</li>
+<li><p>优与劣</p>
+<ul>
+<li>优：以相同的形式调用所有的算法，降低算法类与使用算法的类（策略上下文类）的耦合度</li>
+<li>劣：扩展时违反开闭原则（OCP，Open Closed Principle），当新增加子类的时候，需要修改策略上下文类</li>
+</ul>
+</li>
+</ul>
+<h4 id="策略模式的使用实例"><a href="#策略模式的使用实例" class="headerlink" title="策略模式的使用实例"></a>策略模式的使用实例</h4><ul>
+<li><p>下面以一个简单的磁盘调度算法为例（算法实现仅用输出代替），讲述策略模式的应用</p>
+<ul>
+<li><p>创建父类：在本例中，父类为磁盘调度算法类</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  DiskSchedulingAlgorithm.h</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">DiskSchedulingAlgorithm</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)run;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">//  DiskSchedulingAlgorithm.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">"DiskSchedulingAlgorithm.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">DiskSchedulingAlgorithm</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)run &#123;</div><div class="line">    <span class="built_in">NSAssert</span>(<span class="literal">NO</span>, <span class="string">@"virtual implement shouldn`t be called by"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>创建继承于父类的子类：本例中，子类为具体的磁盘调度算法类，负责实现具体算法。此处子类重写父类方法，以便合理使用多态</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  CSCANAlgorithm.h</span></div><div class="line"><span class="meta">#import <span class="meta-string">"DiskSchedulingAlgorithm.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CSCANAlgorithm</span> : <span class="title">DiskSchedulingAlgorithm</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)run;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">//  CSCANAlgorithm.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">"CSCANAlgorithm.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CSCANAlgorithm</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)run &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Do the CSCAN Algorithm"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  SCANAlgorithm.h</span></div><div class="line"><span class="meta">#import <span class="meta-string">"DiskSchedulingAlgorithm.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SCANAlgorithm</span> : <span class="title">DiskSchedulingAlgorithm</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)run;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">//  SCANAlgorithm.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">"SCANAlgorithm.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">SCANAlgorithm</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)run &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Do the SCAN Algorithm"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  SSTFAlgorithm.h</span></div><div class="line"><span class="meta">#import <span class="meta-string">"DiskSchedulingAlgorithm.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SSTFAlgorithm</span> : <span class="title">DiskSchedulingAlgorithm</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)run;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">//  SSTFAlgorithm.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">"SSTFAlgorithm.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">SSTFAlgorithm</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)run &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Do the SSTF Algorithm"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  FCFSAlgorithm.h</span></div><div class="line"><span class="meta">#import <span class="meta-string">"DiskSchedulingAlgorithm.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">FCFSAlgorithm</span> : <span class="title">DiskSchedulingAlgorithm</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)run;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">//  FCFSAlgorithm.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">"FCFSAlgorithm.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">FCFSAlgorithm</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)run &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Do the FCFS Algorithm"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>实现策略上下文类：实现父类中的简单工厂方法，根据类型判断返回的实例</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  Context.h</span></div><div class="line"><span class="meta">#import <span class="meta-string">"DiskSchedulingAlgorithm.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@class</span> <span class="title">DiskSchedulingAlgorithm</span>;</span></div><div class="line"><span class="class"><span class="keyword">@class</span> <span class="title">FCFSAlgorithm</span>;</span></div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSUInteger</span>, DiskSchedulingAlgorithmType) &#123;</div><div class="line">    kDiskSchedulingCSCANAlgorithmType,</div><div class="line">    kDiskSchedulingSCANAlgorithmType,</div><div class="line">    kDiskSchedulingFCFSAlgorithmType,</div><div class="line">    kDiskSchedulingSSTFAlgorithmType,</div><div class="line">    kDiskSchedulingDefaultAlgorithmType</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> FCFSAlgorithm DefaultAlgorithmType;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Context</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)schedulingDisk;</div><div class="line"></div><div class="line">- (<span class="keyword">instancetype</span> _Nullable)init;</div><div class="line"></div><div class="line">- (<span class="keyword">instancetype</span> _Nullable)initWithDiskSchedulingAlgorithm:(DiskSchedulingAlgorithmType)type;</div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>, <span class="keyword">readwrite</span>, <span class="keyword">nonnull</span>) DiskSchedulingAlgorithm *algorithm;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">//  Context.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">"Context.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"CSCANAlgorithm.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"SCANAlgorithm.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"FCFSAlgorithm.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"SSTFAlgorithm.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Context</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">instancetype</span>)init &#123;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> initWithDiskSchedulingAlgorithm:kDiskSchedulingDefaultAlgorithmType];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 简单工厂模式实现</span></div><div class="line">- (<span class="keyword">instancetype</span>)initWithDiskSchedulingAlgorithm:(DiskSchedulingAlgorithmType)type &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="keyword">super</span> init]) &#123;</div><div class="line">        <span class="keyword">switch</span> (type) &#123;</div><div class="line">            <span class="keyword">case</span> kDiskSchedulingCSCANAlgorithmType:</div><div class="line">                _algorithm = [[CSCANAlgorithm alloc] init];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> kDiskSchedulingSCANAlgorithmType:</div><div class="line">                _algorithm = [[SCANAlgorithm alloc] init];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> kDiskSchedulingFCFSAlgorithmType:</div><div class="line">                _algorithm = [[FCFSAlgorithm alloc] init];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> kDiskSchedulingSSTFAlgorithmType:</div><div class="line">                _algorithm = [[SSTFAlgorithm alloc] init];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> kDiskSchedulingDefaultAlgorithmType:</div><div class="line">                _algorithm = [[DefaultAlgorithmType alloc] init];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)schedulingDisk &#123;</div><div class="line">    [_algorithm run];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>至此，策略模式实现完毕</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="策略模式在系统框架中的应用"><a href="#策略模式在系统框架中的应用" class="headerlink" title="策略模式在系统框架中的应用"></a>策略模式在系统框架中的应用</h4><ul>
+<li>以下内容存有不确定性，倘若有误，劳烦告知</li>
+</ul>
+<ul>
+<li><p>NSArray</p>
+<ul>
+<li><p>我们查阅<code>NSArray</code> API文档时会发现，有下面这一段话</p>
+<blockquote>
+<p>Remember that <code>NSArray</code> is the public interface for a class cluster and what this entails for your subclass. You must provide the storage for your subclass and implement the primitive methods that directly act on that storage.</p>
+<p>​                                                    —— <a href="https://developer.apple.com/reference/foundation/nsarray" target="_blank" rel="external">NSArray API Reference</a></p>
+</blockquote>
+</li>
+<li><p>与<code>NSString</code>类一样，<code>NSArray</code>亦是一个类簇类。对于类簇类而言，如果我们想要继承它，我们需要处理一系列较为复杂的问题。当我们需要使用<code>NSArray</code>的行为时（比如在<code>NSArray</code>之上实现一个栈结构），我们更好地方法是持有<code>NSArray</code>，而非继承。我们可以将<code>NSArray</code>当作我们其中一个策略，然后使用该策略去处理问题。</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>总结：本文简述了策略模式的理论以及实践。我认为，策略模式本质是<strong>持有对象，并使用该对象去解决问题</strong>。我们应该去把握好这个本质。</li>
+<li>本文代码下载<ul>
+<li><a href="https://github.com/SeaHub/CodeSample/tree/master/Code/StrategyPattern" target="_blank" rel="external">示例代码</a></li>
+<li>运行环境：Xcode 8.2.1 (8C1002)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>Last Edited：2017.2.18</li>
+<li>Author：@Seahub</li>
+<li>Please <a href="Seahubc@qq.com">contact me</a> if you want to share this Article, 3Q~</li>
+</ul>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2017/02/17/Simple-Factory-Pattern/">
+        Simple Factory Pattern →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo"></div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Seahub. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/SeaHub" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    
+                    
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
