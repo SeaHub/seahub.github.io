@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-CN">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -71,12 +71,10 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Enjoy!" />
 
 
 
-
-  
 
 
   <link rel="alternate" href="/atom.xml" title="Words Of Life" type="application/atom+xml" />
@@ -91,25 +89,16 @@
 
 
 
-<meta name="description" content="博客相关
-作者：@Seahub
-QQEmail：Seahubc@qq.com
-Gmail：Seahubc@gmail.com">
+<meta name="description" content="记录走过的路">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Words Of Life">
-<meta property="og:url" content="http://yoursite.com/about.html">
+<meta property="og:title" content="标签">
+<meta property="og:url" content="http://yoursite.com/tags/index.html">
 <meta property="og:site_name" content="Words Of Life">
-<meta property="og:description" content="博客相关
-作者：@Seahub
-QQEmail：Seahubc@qq.com
-Gmail：Seahubc@gmail.com">
-<meta property="og:updated_time" content="2016-10-13T05:02:01.000Z">
+<meta property="og:description" content="记录走过的路">
+<meta property="og:updated_time" content="2017-02-19T07:27:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Words Of Life">
-<meta name="twitter:description" content="博客相关
-作者：@Seahub
-QQEmail：Seahubc@qq.com
-Gmail：Seahubc@gmail.com">
+<meta name="twitter:title" content="标签">
+<meta name="twitter:description" content="记录走过的路">
 
 
 
@@ -117,13 +106,13 @@ Gmail：Seahubc@gmail.com">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
-    sidebar: {"position":"left","display":"post"},
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
     fancybox: true,
     motion: true,
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -137,7 +126,7 @@ Gmail：Seahubc@gmail.com">
 
 
 
-  <link rel="canonical" href="http://yoursite.com/about.html"/>
+  <link rel="canonical" href="http://yoursite.com/tags/"/>
 
 
 
@@ -147,12 +136,12 @@ Gmail：Seahubc@gmail.com">
   
 
   
-     | Words Of Life
+    标签 | Words Of Life
   
 </title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -174,7 +163,7 @@ Gmail：Seahubc@gmail.com">
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-right  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -190,7 +179,7 @@ Gmail：Seahubc@gmail.com">
       </a>
     </div>
       
-        <p class="site-subtitle">Record the things appearing in my life</p>
+        <h1 class="site-subtitle" itemprop="description">Record the things appearing in my life</h1>
       
   </div>
 
@@ -215,7 +204,27 @@ Gmail：Seahubc@gmail.com">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -225,7 +234,7 @@ Gmail：Seahubc@gmail.com">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            归档
           </a>
         </li>
       
@@ -235,7 +244,7 @@ Gmail：Seahubc@gmail.com">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            Tags
+            标签
           </a>
         </li>
       
@@ -261,7 +270,7 @@ Gmail：Seahubc@gmail.com">
   <div id="posts" class="posts-expand">
   <header class="post-header">
 
-	<h2 class="post-title" itemprop="name headline"></h2>
+	<h2 class="post-title" itemprop="name headline">标签</h2>
 
 
 
@@ -269,17 +278,14 @@ Gmail：Seahubc@gmail.com">
 
     
     
-      <hr>
-<ul>
-<li>博客相关<ul>
-<li>作者：@Seahub</li>
-<li>QQEmail：Seahubc@qq.com</li>
-<li>Gmail：Seahubc@gmail.com</li>
-</ul>
-</li>
-</ul>
-<hr>
-
+      <div class="tag-cloud">
+        <div class="tag-cloud-title">
+            目前共计 15 个标签
+        </div>
+        <div class="tag-cloud-tags">
+          <a href="/tags/C/" style="font-size: 12px; color: #ccc">C#</a> <a href="/tags/Hackathon/" style="font-size: 12px; color: #ccc">Hackathon</a> <a href="/tags/IPv6/" style="font-size: 12px; color: #ccc">IPv6</a> <a href="/tags/ObjC/" style="font-size: 25.5px; color: #404040">ObjC</a> <a href="/tags/SCAU/" style="font-size: 12px; color: #ccc">SCAU</a> <a href="/tags/Scau防伪码实验/" style="font-size: 12px; color: #ccc">Scau防伪码实验</a> <a href="/tags/Seahub/" style="font-size: 30px; color: #111">Seahub</a> <a href="/tags/WechatApp/" style="font-size: 12px; color: #ccc">WechatApp</a> <a href="/tags/iFanr-x-Segmentfault/" style="font-size: 12px; color: #ccc">iFanr x Segmentfault</a> <a href="/tags/iOS/" style="font-size: 21px; color: #6f6f6f">iOS</a> <a href="/tags/代码优化/" style="font-size: 12px; color: #ccc">代码优化</a> <a href="/tags/微信小程序/" style="font-size: 12px; color: #ccc">微信小程序</a> <a href="/tags/教育网/" style="font-size: 12px; color: #ccc">教育网</a> <a href="/tags/校园网/" style="font-size: 12px; color: #ccc">校园网</a> <a href="/tags/设计模式/" style="font-size: 16.5px; color: #9d9d9d">设计模式</a>
+        </div>
+      </div>
     
   </div>
 
@@ -289,10 +295,6 @@ Gmail：Seahubc@gmail.com">
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -320,8 +322,8 @@ Gmail：Seahubc@gmail.com">
                alt="Seahub" />
           <p class="site-author-name" itemprop="name">Seahub</p>
            
-              <p class="site-description motion-element" itemprop="description">编程开发 学习总结 人生思考 记录生活</p>
-          
+              <p class="site-description motion-element" itemprop="description"></p>
+           
         </div>
         <nav class="site-state motion-element">
         
@@ -329,17 +331,17 @@ Gmail：Seahubc@gmail.com">
             <div class="site-state-item site-state-posts">
               <a href="/archives">
                 <span class="site-state-item-count">9</span>
-                <span class="site-state-item-name">Artikel</span>
+                <span class="site-state-item-name">日志</span>
               </a>
             </div>
           
 
           
             <div class="site-state-item site-state-categories">
-              
-                <span class="site-state-item-count">9</span>
-                <span class="site-state-item-name">Kategorien</span>
-              
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
             </div>
           
 
@@ -347,7 +349,7 @@ Gmail：Seahubc@gmail.com">
             <div class="site-state-item site-state-tags">
               <a href="/tags">
                 <span class="site-state-item-count">15</span>
-                <span class="site-state-item-name">Tags</span>
+                <span class="site-state-item-name">标签</span>
               </a>
             </div>
           
@@ -392,7 +394,7 @@ Gmail：Seahubc@gmail.com">
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
+  &copy;  2016 - 
   <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
@@ -402,13 +404,13 @@ Gmail：Seahubc@gmail.com">
 
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
-  Theme -
+  主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
+    NexT.Mist
   </a>
 </div>
 
@@ -524,6 +526,21 @@ Gmail：Seahubc@gmail.com">
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
 
