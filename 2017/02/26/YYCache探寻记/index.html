@@ -91,14 +91,14 @@
 
 <meta name="description" content="摘要：阅读YYCache源码后的一些体会">
 <meta property="og:type" content="article">
-<meta property="og:title" content="YYCache探寻记">
+<meta property="og:title" content="YYCache 探寻记">
 <meta property="og:url" content="http://yoursite.com/2017/02/26/YYCache探寻记/index.html">
 <meta property="og:site_name" content="Words Of Life">
 <meta property="og:description" content="摘要：阅读YYCache源码后的一些体会">
 <meta property="og:image" content="http://yoursite.com/2017/02/26/YYCache探寻记/YYCache.png">
-<meta property="og:updated_time" content="2017-03-11T00:42:58.000Z">
+<meta property="og:updated_time" content="2017-03-11T07:44:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="YYCache探寻记">
+<meta name="twitter:title" content="YYCache 探寻记">
 <meta name="twitter:description" content="摘要：阅读YYCache源码后的一些体会">
 <meta name="twitter:image" content="http://yoursite.com/2017/02/26/YYCache探寻记/YYCache.png">
 
@@ -134,7 +134,7 @@
 
 
 
-  <title> YYCache探寻记 | Words Of Life </title>
+  <title> YYCache 探寻记 | Words Of Life </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -297,7 +297,7 @@
             
             
               
-                YYCache探寻记
+                YYCache 探寻记
               
             
           </h2>
@@ -520,7 +520,7 @@
 <li>两个方法都会分别调用<code>[self _trimRecursively];</code>，这个方法便是我想要提及的定期删除方法</li>
 </ol>
 <p>我们来大概看一下<code>_trimRecursively</code>的伪代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">- (void)_trimRecursively &#123;</div><div class="line">    __weak typeof(self) _self = self;</div><div class="line">  	// 延迟释放</div><div class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_autoTrimInterval * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^&#123;</div><div class="line">      	// Strong - Weak Dance</div><div class="line">        __strong typeof(_self) self = _self;</div><div class="line">        if (!self) return;</div><div class="line">      	// 在维护的GCD队列中执行不同的淘汰标准算法</div><div class="line">      	// YYMemoryCache维护的是GCD串行队列，YYDiskCache维护的是GCD并行队列</div><div class="line">        [self _trimInBackground];</div><div class="line">      	// 重新将函数入栈</div><div class="line">        [self _trimRecursively];</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)_trimRecursively &#123;</div><div class="line">    __<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) _<span class="keyword">self</span> = <span class="keyword">self</span>;</div><div class="line">  	<span class="comment">// 延迟释放</span></div><div class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_autoTrimInterval * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, <span class="number">0</span>), ^&#123;</div><div class="line">      	<span class="comment">// Strong - Weak Dance</span></div><div class="line">        __<span class="keyword">strong</span> <span class="keyword">typeof</span>(_<span class="keyword">self</span>) <span class="keyword">self</span> = _<span class="keyword">self</span>;</div><div class="line">        <span class="keyword">if</span> (!<span class="keyword">self</span>) <span class="keyword">return</span>;</div><div class="line">      	<span class="comment">// 在维护的GCD队列中执行不同的淘汰标准算法</span></div><div class="line">      	<span class="comment">// YYMemoryCache维护的是GCD串行队列，YYDiskCache维护的是GCD并行队列</span></div><div class="line">        [<span class="keyword">self</span> _trimInBackground];</div><div class="line">      	<span class="comment">// 重新将函数入栈</span></div><div class="line">        [<span class="keyword">self</span> _trimRecursively];</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>在这个实现中，我们可以看到<code>YYCache</code>很巧妙的使用<code>GCD</code> + 尾递归实现了定期淘汰算法</p>
 </li>
 <li><p>缓存重置</p>
@@ -529,11 +529,11 @@
 <p>当我们的程序进入后台的时候，也是同理，判断是否存在<code>didEnterBackgroundBlock</code>能够执行，执行完后则对<code>shouldRemoveAllObjectsWhenEnteringBackground</code>这一属性值进行判断（默认为<code>YES</code>），当其为真时，执行<code>[self removeAllObjects];</code></p>
 <p>那究竟有什么好说的呢？我想说的是我们手动调用<code>YYCache - removeAllObjects</code>的时候，对于硬盘缓存的处理过程</p>
 <p>同样的，我们先大概看一下<code>YYKVStorage - removeAllItems</code>代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (BOOL)removeAllItems &#123;</div><div class="line">    if (![self _dbClose]) return NO;</div><div class="line">    [self _reset];</div><div class="line">    if (![self _dbOpen]) return NO;</div><div class="line">    if (![self _dbInitialize]) return NO;</div><div class="line">    return YES;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)removeAllItems &#123;</div><div class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span> _dbClose]) <span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">    [<span class="keyword">self</span> _reset];</div><div class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span> _dbOpen]) <span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span> _dbInitialize]) <span class="keyword">return</span> <span class="literal">NO</span>;</div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这样看，似乎也没有什么大不了嘛，无非是断开与数据库的连接，清除文件，再重新建与数据库的连接，然后再执行初始化方法。下面再让我们来看一下<code>YYKVStorage - _reset</code>这一代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (void)_reset &#123;</div><div class="line">    [[NSFileManager defaultManager] removeItemAtPath:[_path stringByAppendingPathComponent:kDBFileName] error:nil];</div><div class="line">    [[NSFileManager defaultManager] removeItemAtPath:[_path stringByAppendingPathComponent:kDBShmFileName] error:nil];</div><div class="line">    [[NSFileManager defaultManager] removeItemAtPath:[_path stringByAppendingPathComponent:kDBWalFileName] error:nil];</div><div class="line">    [self _fileMoveAllToTrash];</div><div class="line">    [self _fileEmptyTrashInBackground];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)_reset &#123;</div><div class="line">    [[<span class="built_in">NSFileManager</span> defaultManager] removeItemAtPath:[_path stringByAppendingPathComponent:kDBFileName] error:<span class="literal">nil</span>];</div><div class="line">    [[<span class="built_in">NSFileManager</span> defaultManager] removeItemAtPath:[_path stringByAppendingPathComponent:kDBShmFileName] error:<span class="literal">nil</span>];</div><div class="line">    [[<span class="built_in">NSFileManager</span> defaultManager] removeItemAtPath:[_path stringByAppendingPathComponent:kDBWalFileName] error:<span class="literal">nil</span>];</div><div class="line">    [<span class="keyword">self</span> _fileMoveAllToTrash];</div><div class="line">    [<span class="keyword">self</span> _fileEmptyTrashInBackground];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>我们在这里除了看到了把记录了元信息的数据库文件删除这一操作的代码，还看到了什么？回收站！对的，魔法就在于此，我们再看一下<code>YYDiskCache - _fileMoveAllToTrash</code>这一代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">// _dataPath  = ~/Library/Cache/data</div><div class="line">// _trashPath = ~/Library/Cache/trash</div><div class="line"></div><div class="line">- (BOOL)_fileMoveAllToTrash &#123;</div><div class="line">    CFUUIDRef uuidRef = CFUUIDCreate(NULL);</div><div class="line">    CFStringRef uuid = CFUUIDCreateString(NULL, uuidRef);</div><div class="line">    CFRelease(uuidRef);</div><div class="line">    NSString *tmpPath = [_trashPath stringByAppendingPathComponent:(__bridge NSString *)(uuid)];</div><div class="line">    BOOL suc = [[NSFileManager defaultManager] moveItemAtPath:_dataPath toPath:tmpPath error:nil];</div><div class="line">    if (suc) &#123;</div><div class="line">        suc = [[NSFileManager defaultManager] createDirectoryAtPath:_dataPath withIntermediateDirectories:YES attributes:nil error:NULL];</div><div class="line">    &#125;</div><div class="line">    CFRelease(uuid);</div><div class="line">    return suc;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// _dataPath  = ~/Library/Cache/data</span></div><div class="line"><span class="comment">// _trashPath = ~/Library/Cache/trash</span></div><div class="line"></div><div class="line">- (<span class="built_in">BOOL</span>)_fileMoveAllToTrash &#123;</div><div class="line">    <span class="built_in">CFUUIDRef</span> uuidRef = <span class="built_in">CFUUIDCreate</span>(<span class="literal">NULL</span>);</div><div class="line">    <span class="built_in">CFStringRef</span> uuid = <span class="built_in">CFUUIDCreateString</span>(<span class="literal">NULL</span>, uuidRef);</div><div class="line">    <span class="built_in">CFRelease</span>(uuidRef);</div><div class="line">    <span class="built_in">NSString</span> *tmpPath = [_trashPath stringByAppendingPathComponent:(__bridge <span class="built_in">NSString</span> *)(uuid)];</div><div class="line">    <span class="built_in">BOOL</span> suc = [[<span class="built_in">NSFileManager</span> defaultManager] moveItemAtPath:_dataPath toPath:tmpPath error:<span class="literal">nil</span>];</div><div class="line">    <span class="keyword">if</span> (suc) &#123;</div><div class="line">        suc = [[<span class="built_in">NSFileManager</span> defaultManager] createDirectoryAtPath:_dataPath withIntermediateDirectories:<span class="literal">YES</span> attributes:<span class="literal">nil</span> error:<span class="literal">NULL</span>];</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">CFRelease</span>(uuid);</div><div class="line">    <span class="keyword">return</span> suc;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>YYCache首先会将我们的磁盘缓存文件，移动到其所维护的回收站目录当中，然后再在后台线程对其删除。避免了删除过程影响我们新建立磁盘缓存。个人认为，设计思想实在十分巧妙。</p>
 <h3 id="YYCache还做了什么"><a href="#YYCache还做了什么" class="headerlink" title="YYCache还做了什么"></a>YYCache还做了什么</h3></li>
 </ul>
@@ -572,7 +572,7 @@
 <li>Release Trick：在<code>ARC</code>中，我们没办法调用<code>release</code>，那怎样让对象在其他线程释放呢？使用<code>GCD</code>调用对象的方法即可，<code>hodler</code>会被<code>block</code>获取，随后在<code>block</code>结束时，在<code>queue</code>中释放！</li>
 <li>Try Lock Trick：<code>pthread_mutex_trylock</code>是 <code>pthread_mutex_lock</code>的非阻塞版本。如果<code>pthread_mutex</code>所引用的互斥对象当前被任何线程（包括当前线程）锁定，则将立即返回该调用。否则，该互斥锁将处于锁定状态，调用线程是其属主。当我们获取锁失败的时候，可以短暂的睡眠（<code>usleep</code>），过一段时间再次请求</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">// release trick </div><div class="line"> NSMutableArray *holder = [NSMutableArray new];</div><div class="line">     ...</div><div class="line"> if (holder.count) &#123;</div><div class="line"> 	dispatch_queue_t queue = _lru-&gt;_releaseOnMainThread ? dispatch_get_main_queue() : YYMemoryCacheGetReleaseQueue();</div><div class="line"> 		dispatch_async(queue, ^&#123;</div><div class="line">             [holder count]; // release in queue</div><div class="line">         &#125;);</div><div class="line">  	&#125;</div><div class="line"> &#125;</div><div class="line"></div><div class="line">// try lock trick</div><div class="line">while (Condition) &#123;</div><div class="line">	if (pthread_mutex_trylock(&amp;_lock) == 0) &#123;</div><div class="line">        ...</div><div class="line">        pthread_mutex_unlock(&amp;_lock);</div><div class="line">	&#125; else &#123;</div><div class="line">        usleep(10 * 1000); //10 ms</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// release trick </span></div><div class="line"> <span class="built_in">NSMutableArray</span> *holder = [<span class="built_in">NSMutableArray</span> new];</div><div class="line">     ...</div><div class="line"> <span class="keyword">if</span> (holder.count) &#123;</div><div class="line"> 	<span class="built_in">dispatch_queue_t</span> queue = _lru-&gt;_releaseOnMainThread ? dispatch_get_main_queue() : YYMemoryCacheGetReleaseQueue();</div><div class="line"> 		<span class="built_in">dispatch_async</span>(queue, ^&#123;</div><div class="line">             [holder count]; <span class="comment">// release in queue</span></div><div class="line">         &#125;);</div><div class="line">  	&#125;</div><div class="line"> &#125;</div><div class="line"></div><div class="line"><span class="comment">// try lock trick</span></div><div class="line"><span class="keyword">while</span> (Condition) &#123;</div><div class="line">	<span class="keyword">if</span> (pthread_mutex_trylock(&amp;_lock) == <span class="number">0</span>) &#123;</div><div class="line">        ...</div><div class="line">        pthread_mutex_unlock(&amp;_lock);</div><div class="line">	&#125; <span class="keyword">else</span> &#123;</div><div class="line">        usleep(<span class="number">10</span> * <span class="number">1000</span>); <span class="comment">//10 ms</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="Learn-From-Issue-Commit-and-Release"><a href="#Learn-From-Issue-Commit-and-Release" class="headerlink" title="Learn From Issue, Commit and Release"></a>Learn From Issue, Commit and Release</h3><p>下面的<code>Q &amp; A</code>整理自<code>YYCache</code>下的<code>Issue, Commit and Release</code></p>
 <ul>
 <li><p><code>YYCache</code>作者建议我们不要使用<code>Apple</code>的<code>SQLite</code>库，而是使用官方的最新版<code>SQLite</code>，如何做呢？</p>
@@ -677,6 +677,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/03/11/isKindOfClass-and-isMemberOfClass/" rel="prev" title="isKindOfClass and isMemberOfClass">
+                isKindOfClass and isMemberOfClass <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -747,7 +751,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -756,7 +760,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -765,7 +769,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

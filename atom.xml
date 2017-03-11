@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-03-11T00:42:58.000Z</updated>
+  <updated>2017-03-11T08:10:30.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,42 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>YYCache探寻记</title>
+    <title>isKindOfClass and isMemberOfClass</title>
+    <link href="http://yoursite.com/2017/03/11/isKindOfClass-and-isMemberOfClass/"/>
+    <id>http://yoursite.com/2017/03/11/isKindOfClass-and-isMemberOfClass/</id>
+    <published>2017-03-11T01:34:51.000Z</published>
+    <updated>2017-03-11T08:10:30.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;摘要：isKindOfClass、isMemberOfClass 之思&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Objc" scheme="http://yoursite.com/categories/Objc/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/Objc/iOS/"/>
+    
+      <category term="runtime" scheme="http://yoursite.com/categories/Objc/iOS/runtime/"/>
+    
+    
+      <category term="Seahub" scheme="http://yoursite.com/tags/Seahub/"/>
+    
+      <category term="ObjC" scheme="http://yoursite.com/tags/ObjC/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="runtime" scheme="http://yoursite.com/tags/runtime/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>YYCache 探寻记</title>
     <link href="http://yoursite.com/2017/02/26/YYCache%E6%8E%A2%E5%AF%BB%E8%AE%B0/"/>
     <id>http://yoursite.com/2017/02/26/YYCache探寻记/</id>
     <published>2017-02-26T14:20:29.000Z</published>
-    <updated>2017-03-11T00:42:58.000Z</updated>
+    <updated>2017-03-11T07:44:49.000Z</updated>
     
     <summary type="html">
     
@@ -51,7 +82,7 @@
     <link href="http://yoursite.com/2017/02/18/Strategy-Pattern/"/>
     <id>http://yoursite.com/2017/02/18/Strategy-Pattern/</id>
     <published>2017-02-18T12:20:50.000Z</published>
-    <updated>2017-03-11T00:44:05.000Z</updated>
+    <updated>2017-03-11T07:43:50.000Z</updated>
     
     <summary type="html">
     
@@ -80,7 +111,7 @@
     <link href="http://yoursite.com/2017/02/17/Simple-Factory-Pattern/"/>
     <id>http://yoursite.com/2017/02/17/Simple-Factory-Pattern/</id>
     <published>2017-02-17T15:04:52.000Z</published>
-    <updated>2017-03-11T00:44:36.000Z</updated>
+    <updated>2017-03-11T07:43:21.000Z</updated>
     
     <summary type="html">
     
@@ -138,7 +169,7 @@
     <link href="http://yoursite.com/2016/12/05/Top-Level-Const-And-Low-Level-Const/"/>
     <id>http://yoursite.com/2016/12/05/Top-Level-Const-And-Low-Level-Const/</id>
     <published>2016-12-05T04:41:52.000Z</published>
-    <updated>2017-03-11T00:31:18.000Z</updated>
+    <updated>2017-03-11T07:44:14.000Z</updated>
     
     <summary type="html">
     
@@ -161,7 +192,7 @@
     <link href="http://yoursite.com/2016/11/22/UIResponder,%20Weak%20Or%20Strong/"/>
     <id>http://yoursite.com/2016/11/22/UIResponder, Weak Or Strong/</id>
     <published>2016-11-22T14:47:39.000Z</published>
-    <updated>2017-03-11T00:43:15.000Z</updated>
+    <updated>2017-03-11T07:44:33.000Z</updated>
     
     <summary type="html">
     
@@ -275,7 +306,7 @@
     <link href="http://yoursite.com/2016/09/17/HelloMyBlog/"/>
     <id>http://yoursite.com/2016/09/17/HelloMyBlog/</id>
     <published>2016-09-17T12:19:43.000Z</published>
-    <updated>2016-11-22T14:19:51.000Z</updated>
+    <updated>2017-03-11T07:42:02.000Z</updated>
     
     <summary type="html">
     
