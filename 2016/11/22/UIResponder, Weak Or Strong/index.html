@@ -95,16 +95,14 @@
 <meta property="og:url" content="http://yoursite.com/2016/11/22/UIResponder, Weak Or Strong/index.html">
 <meta property="og:site_name" content="Words Of Life">
 <meta property="og:description" content="摘要：一个小问题引起的两三思">
-<meta property="og:image" content="http://yoursite.com/2016/11/22/UIResponder,%20Weak%20Or%20Strong/defaultCode.png">
-<meta property="og:image" content="http://yoursite.com/2016/11/22/UIResponder,%20Weak%20Or%20Strong/aWeakIBLabel.png">
 <meta property="og:image" content="http://yoursite.com/2016/11/22/UIResponder,%20Weak%20Or%20Strong/holdingDiagram.png">
 <meta property="og:image" content="http://yoursite.com/2016/11/22/UIResponder,%20Weak%20Or%20Strong/holdingDiagram2.png">
 <meta property="og:image" content="http://yoursite.com/2016/11/22/UIResponder,%20Weak%20Or%20Strong/holdingDiagram3.png">
-<meta property="og:updated_time" content="2016-11-23T04:51:09.000Z">
+<meta property="og:updated_time" content="2017-03-11T00:43:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UIResponder, Weak Or Strong?">
 <meta name="twitter:description" content="摘要：一个小问题引起的两三思">
-<meta name="twitter:image" content="http://yoursite.com/2016/11/22/UIResponder,%20Weak%20Or%20Strong/defaultCode.png">
+<meta name="twitter:image" content="http://yoursite.com/2016/11/22/UIResponder,%20Weak%20Or%20Strong/holdingDiagram.png">
 
 
 
@@ -391,7 +389,7 @@
 <hr>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2></li>
 <li><p>一朋友在看视频学习时敲下以下代码（涉及到的主要代码如下），然后问了我一个小问题，问题是：”为什么要有weakLabel指向aLabel?”。</p>
-<img src="/2016/11/22/UIResponder,%20Weak%20Or%20Strong/defaultCode.png" alt="DefaultCode" title="DefaultCode">
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">#import &quot;ViewController.h&quot;</div><div class="line"></div><div class="line">@interface ViewController ()</div><div class="line"></div><div class="line">@property (weak, nonatomic) IBOutlet     UILabel *aIBLabel;</div><div class="line">@property (nonatomic, strong, readwrite) UILabel *strongLabel;</div><div class="line">@property (nonatomic, weak, readwrite)   UILabel *weakLabel;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation ViewController</div><div class="line"></div><div class="line">- (void)viewDidLoad &#123;</div><div class="line">    [super viewDidLoad];</div><div class="line">    NSString *aString = @&quot;Tesing&quot;;</div><div class="line">    CGSize viewSize   = self.view.frame.size;</div><div class="line"> </div><div class="line">	UILabel *aLabel  = [[UILabel alloc] initWithFrame:CGRectMake(viewSize.width / 2 - 40, viewSize.height / 2 - 40, 80, 80)];</div><div class="line">	aLabel.text      = aString;</div><div class="line">	self.weakLabel   = aLabel;</div><div class="line">	[self.view addSubview:aLabel];</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
 </li>
 <li><p>我给他的答案比较简单：”因为新建的aLabel可能在后续的地方用到，所以使用weakLabel指向，这样做主要是方便以后访问”</p>
 </li>
@@ -404,8 +402,8 @@
 </li>
 <li><p>讨论：</p>
 <ul>
-<li><p>我们使用IB”画界面”的时候，IB自动为我们生成的代码就是weak的（如下图）</p>
-<p>​<img src="/2016/11/22/UIResponder,%20Weak%20Or%20Strong/aWeakIBLabel.png" alt="IBCreatedCode" title="IBCreatedCode"></p>
+<li><p>我们使用IB”画界面”的时候，IB自动为我们生成的代码就是weak的（如下）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property (weak, nonatomic) IBOutlet UILabel *aIBLabel;</div></pre></td></tr></table></figure>
 </li>
 <li><p>这是为什么呢？主要是因为我们使用IB设计界面时，View因为是Controller的属性，会被自动持有，而我们在界面设计中的UILabel则被View持有的SubViews的其中一个SubView所持有，即持有关系如下图。</p>
 <img src="/2016/11/22/UIResponder,%20Weak%20Or%20Strong/holdingDiagram.png" alt="Holding" title="Holding">
@@ -427,7 +425,7 @@
 <li><p>讨论：</p>
 <ul>
 <li><p>第一种代码风格：采用临时变量创建并立即添加控件，采用弱属性指向，代码如下</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// ...</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>, <span class="keyword">readwrite</span>)   <span class="built_in">UILabel</span> *weakLabel;</div><div class="line"><span class="comment">// ...</span></div><div class="line"><span class="comment">// Code Style 1:</span></div><div class="line"><span class="built_in">UILabel</span> *aLabel  = [[<span class="built_in">UILabel</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(viewSize.width / <span class="number">2</span> - <span class="number">40</span>, viewSize.height / <span class="number">2</span> - <span class="number">40</span>, <span class="number">80</span>, <span class="number">80</span>)]; <span class="comment">// ①New - retainCount = 1</span></div><div class="line">aLabel.text      = aString;</div><div class="line"><span class="keyword">self</span>.weakLabel   = aLabel; 				<span class="comment">// ②Point To It  - retainCount = 1</span></div><div class="line">[<span class="keyword">self</span>.view addSubview:aLabel]; 			<span class="comment">// ③Add SubView  - retainCount = 2</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// ...</div><div class="line">@property (nonatomic, weak, readwrite)   UILabel *weakLabel;</div><div class="line">// ...</div><div class="line">// Code Style 1:</div><div class="line">UILabel *aLabel  = [[UILabel alloc] initWithFrame:CGRectMake(viewSize.width / 2 - 40, viewSize.height / 2 - 40, 80, 80)]; // ①New - retainCount = 1</div><div class="line">aLabel.text      = aString;</div><div class="line">self.weakLabel   = aLabel; 				// ②Point To It  - retainCount = 1</div><div class="line">[self.view addSubview:aLabel]; 			// ③Add SubView  - retainCount = 2</div></pre></td></tr></table></figure>
 </li>
 <li><p>此时的持有关系图如下</p>
 <img src="/2016/11/22/UIResponder,%20Weak%20Or%20Strong/holdingDiagram2.png" alt="Holding Of Code Style 1" title="Holding Of Code Style 1">
@@ -459,7 +457,7 @@
 <li><p>讨论：</p>
 <ul>
 <li><p>第二种代码风格：直接使用属性创建的控件，应用强属性指向，代码如下</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// ...</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>, <span class="keyword">readwrite</span>) <span class="built_in">UILabel</span> *strongLabel;</div><div class="line"><span class="comment">// ...</span></div><div class="line"><span class="comment">// Code Style 2:</span></div><div class="line"><span class="keyword">self</span>.strongLabel      = [[<span class="built_in">UILabel</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(viewSize.width / <span class="number">2</span> - <span class="number">40</span>, viewSize.height / <span class="number">2</span> - <span class="number">40</span>, <span class="number">80</span>, <span class="number">80</span>)]; <span class="comment">// ①New - retainCount = 1</span></div><div class="line"><span class="keyword">self</span>.strongLabel.text = aString;</div><div class="line">[<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.strongLabel];    <span class="comment">// ②Add SubView  - retainCount = 2</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// ...</div><div class="line">@property (nonatomic, strong, readwrite) UILabel *strongLabel;</div><div class="line">// ...</div><div class="line">// Code Style 2:</div><div class="line">self.strongLabel      = [[UILabel alloc] initWithFrame:CGRectMake(viewSize.width / 2 - 40, viewSize.height / 2 - 40, 80, 80)]; // ①New - retainCount = 1</div><div class="line">self.strongLabel.text = aString;</div><div class="line">[self.view addSubview:self.strongLabel];    // ②Add SubView  - retainCount = 2</div></pre></td></tr></table></figure>
 </li>
 <li><p>此时的持有关系图如下</p>
 <img src="/2016/11/22/UIResponder,%20Weak%20Or%20Strong/holdingDiagram3.png" alt="Holding Of Code Style 2" title="Holding Of Code Style 2">

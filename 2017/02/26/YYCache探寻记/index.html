@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="Words Of Life">
 <meta property="og:description" content="摘要：阅读YYCache源码后的一些体会">
 <meta property="og:image" content="http://yoursite.com/2017/02/26/YYCache探寻记/YYCache.png">
-<meta property="og:updated_time" content="2017-02-27T08:36:09.000Z">
+<meta property="og:updated_time" content="2017-03-11T00:42:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="YYCache探寻记">
 <meta name="twitter:description" content="摘要：阅读YYCache源码后的一些体会">
@@ -413,10 +413,10 @@
 <li><code>YYKVStorage</code>：封装了底层磁盘存储类</li>
 <li><code>YYKVSStorageItem</code>：存储的单元类，执行SQL返回的对象类</li>
 </ul>
-<h3 id="方法剖析"><a href="#方法剖析" class="headerlink" title="方法剖析"></a>方法剖析</h3><p>个人认为，理解<code>YYCache</code>最重要在于理解他<strong>如何存</strong>、<strong>如何取</strong>以及<strong>如何删</strong>，下面将对这两个点进行简析</p>
+<h3 id="方法剖析"><a href="#方法剖析" class="headerlink" title="方法剖析"></a>方法剖析</h3><p>个人认为，理解<code>YYCache</code>最重要在于理解他<strong>如何存</strong>、<strong>如何取</strong>以及<strong>如何删</strong>，下面我将对这几个点进行简析</p>
 <ul>
 <li><p>如何存</p>
-<p>当我们使用<code>YYCache - setObject:forKey:</code> 时，<code>YYCache</code>会进行以下操作，分别是进行内存缓存以及进行磁盘缓存。而如果我们使用<code>YYCache - setObject:forKey:withBlock:</code>，<code>YYCache</code>会帮我们把磁盘缓存操作以及传入的<code>block</code>放在<code>YYCache</code>维护的<code>GCD</code>并行队列中异步执行</p>
+<p>当我们使用<code>YYCache - setObject:forKey:</code> 时，<code>YYCache</code>会进行内存缓存以及进行磁盘缓存。而如果我们使用<code>YYCache - setObject:forKey:withBlock:</code>，<code>YYCache</code>会帮我们把磁盘缓存操作以及传入的<code>block</code>放在<code>YYCache</code>维护的<code>GCD</code>并行队列中异步执行</p>
 <ul>
 <li>内存缓存操作步骤<ol>
 <li>判断<code>key</code>是否存在<ul>
@@ -461,7 +461,7 @@
 </ul>
 </li>
 <li><p>如何取</p>
-<p>当我们使用<code>YYCache - objectForKey:</code> 时，<code>YYCache</code>会进行以下操作，分别是进行内存缓存检索以及磁盘缓存检索。而如果我们使用<code>YYCache - objectForKey:withBlock:</code>，<code>YYCache</code>会帮我们把磁盘缓存检索操作以及传入的<code>block</code>放在<code>YYCache</code>维护的<code>GCD</code>并行队列中异步执行</p>
+<p>当我们使用<code>YYCache - objectForKey:</code> 时，<code>YYCache</code>会进行内存缓存检索以及磁盘缓存检索。而如果我们使用<code>YYCache - objectForKey:withBlock:</code>，<code>YYCache</code>会帮我们把磁盘缓存检索操作以及传入的<code>block</code>放在<code>YYCache</code>维护的<code>GCD</code>并行队列中异步执行</p>
 <ul>
 <li>内存缓存检索步骤<ul>
 <li>查找双向链表，判断是否存在对应<code>key</code>的<code>object</code><ul>
@@ -491,7 +491,7 @@
 <ul>
 <li>内存缓存删除步骤<ol>
 <li>找到对应的节点</li>
-<li>判断是否需要在主队列释放，若否则在<code>GCD Global Low队列</code>中释放</li>
+<li>判断是否需要在主队列释放，若否则在<code>GCD Low Global Low Queue</code>中释放</li>
 </ol>
 </li>
 <li>磁盘缓存删除步骤<ul>
@@ -515,17 +515,17 @@
 <li><p>定期删除</p>
 <p>在我们初始化<code>YYCache</code>的时候，我们初始化的调用过程是这样的：</p>
 <ol>
-<li>所有<code>YYCache</code>的初始化方法最终都会调用<code>YYCache - initWithPath:</code></li>
+<li>所有<code>YYCache</code>的初始化方法最终都会调用<code>YYCache - initWithPath:</code>这一指定构造器</li>
 <li>接着会分别调用<code>YYDiskCache - initWithPath:inlineThreshold:</code>以及<code>YYMemoryCache - init</code></li>
 <li>两个方法都会分别调用<code>[self _trimRecursively];</code>，这个方法便是我想要提及的定期删除方法</li>
 </ol>
 <p>我们来大概看一下<code>_trimRecursively</code>的伪代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">- (void)_trimRecursively &#123;</div><div class="line">    __weak typeof(self) _self = self;</div><div class="line">  	// 延迟释放</div><div class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_autoTrimInterval * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^&#123;</div><div class="line">      	// Strong - Weak Dance</div><div class="line">        __strong typeof(_self) self = _self;</div><div class="line">        if (!self) return;</div><div class="line">      	// 在维护的GCD队列中执行不同的淘汰标准算法</div><div class="line">      	// YYMemoryCache维护的是GCD串行队列，YYDiskCache维护的是GCD并行队列</div><div class="line">        [self _trimInBackground];</div><div class="line">      	// 重新将函数入栈</div><div class="line">        [self _trimRecursively];</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在这个实现中，我们可以看到YYCache很巧妙的使用<code>GCD</code> + 尾递归实现了定期淘汰算法</p>
+<p>在这个实现中，我们可以看到<code>YYCache</code>很巧妙的使用<code>GCD</code> + 尾递归实现了定期淘汰算法</p>
 </li>
 <li><p>缓存重置</p>
 <p>关于缓存重置，大家可能认为没什么好说的，无非是把内存释放了，把磁盘文件删除了。在那<code>YYCache</code>是怎样释放的呢？</p>
-<p>首先是当我们的程序收到内存警告的时候，YYMemoryCache会判断我们自己有没有<code>didReceiveMemoryWarningBlock</code>能够执行的，执行完后则对<code>shouldRemoveAllObjectsOnMemoryWarning</code>这一属性值进行判断（默认为<code>YES</code>），当其为真的时候，执行<code>[self removeAllObjects];</code>，也就是上面所说的，简单的内存释放了。</p>
+<p>首先是当我们的程序收到内存警告的时候，<code>YYMemoryCache</code>会判断我们自己有没有<code>didReceiveMemoryWarningBlock</code>能够执行，执行完后则对<code>shouldRemoveAllObjectsOnMemoryWarning</code>这一属性值进行判断（默认为<code>YES</code>），当其为真的时候，执行<code>[self removeAllObjects];</code>，也就是上面所说的，简单的内存释放了。</p>
 <p>当我们的程序进入后台的时候，也是同理，判断是否存在<code>didEnterBackgroundBlock</code>能够执行，执行完后则对<code>shouldRemoveAllObjectsWhenEnteringBackground</code>这一属性值进行判断（默认为<code>YES</code>），当其为真时，执行<code>[self removeAllObjects];</code></p>
 <p>那究竟有什么好说的呢？我想说的是我们手动调用<code>YYCache - removeAllObjects</code>的时候，对于硬盘缓存的处理过程</p>
 <p>同样的，我们先大概看一下<code>YYKVStorage - removeAllItems</code>代码</p>
@@ -548,7 +548,7 @@
 <li><code>Trim Check</code>队列: <code>Low Global Queue</code></li>
 <li><code>Trim</code>队列 / 磁盘读写队列: <code>GCD并行队列</code></li>
 <li>清除回收站队列: <code>GCD串行队列</code><ul>
-<li>仅reset时使用回收站，其他均直接在主队列删除</li>
+<li>仅<code>reset</code>时使用回收站，其他均直接在主队列删除</li>
 </ul>
 </li>
 </ul>
@@ -576,7 +576,7 @@
 <h3 id="Learn-From-Issue-Commit-and-Release"><a href="#Learn-From-Issue-Commit-and-Release" class="headerlink" title="Learn From Issue, Commit and Release"></a>Learn From Issue, Commit and Release</h3><p>下面的<code>Q &amp; A</code>整理自<code>YYCache</code>下的<code>Issue, Commit and Release</code></p>
 <ul>
 <li><p><code>YYCache</code>作者建议我们不要使用<code>Apple</code>的<code>SQLite</code>库，而是使用官方的最新版<code>SQLite</code>，如何做呢？</p>
-<p>我们只需从<code>sqlite</code>官网下载源码包，将解压后的两个文件<code>sqlite.h</code>，<code>sqlite.c</code>，拖入工程中</p>
+<p>我们只需从<code>sqlite</code>官网下载源码包，将解压后的两个文件<code>sqlite.h</code>，<code>sqlite.c</code>，拖入工程中即可</p>
 </li>
 <li><p>从源码我们可以看见，大部分操作都需要执行<code>SQL</code>语句，这样做会不会有性能问题呢？</p>
 <p><code>SQLite</code>中存储的总数据量较少（仅存储简单的元数据（<code>key、time、size</code>）和少量的<code>Value</code>）</p>

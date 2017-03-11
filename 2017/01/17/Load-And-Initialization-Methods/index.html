@@ -100,7 +100,7 @@
 <meta property="og:image" content="http://yoursite.com/2017/01/17/Load-And-Initialization-Methods/codeA.png">
 <meta property="og:image" content="http://yoursite.com/2017/01/17/Load-And-Initialization-Methods/codeB.png">
 <meta property="og:image" content="http://yoursite.com/2017/01/17/Load-And-Initialization-Methods/main.png">
-<meta property="og:updated_time" content="2017-02-20T00:11:35.000Z">
+<meta property="og:updated_time" content="2017-03-11T00:45:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Load And Initialization Methods">
 <meta name="twitter:description" content="摘要：浅谈NSObject中的load方法与initialize方法">
@@ -402,7 +402,7 @@
 <ol>
 <li>程序依赖的动态链接库加载进内存</li>
 <li>加载可执行文件的所有符号、代码</li>
-<li>运行时解析被编译过的符号代码，遍历所有类与分类，按继承关系依次调用类与分类的load方法<ul>
+<li>运行时解析被编译过的符号代码，遍历所有类与分类，按继承关系依次调用类与分类的<code>load</code>方法<ul>
 <li><code>load</code>方法一般在类/分类添加到运行时环境时调用，一般在<code>application:willFinishLaunchingWithOptions:</code>调用之前</li>
 </ul>
 </li>
@@ -415,7 +415,7 @@
 <li><p>调用顺序：<strong>依赖的类会先调用，即调用子类时，会先调用父类；分类最后调用，不会覆盖<code>load</code>方法</strong></p>
 <ul>
 <li>简析：因为<code>load</code>方法在运行时并不是通过消息发送(<code>objc_msgSend</code>)，而是通过函数指针来实现的。所以对于一个有继承关系的类，若子类中的<code>load</code>方法为空实现，则父类的<code>load</code>方法除因依赖问题被调用一次外，不会再次被调用。同理，因为不是走消息发送的原因，所以如果在分类中重写<code>load</code>方法，分类中的<code>load</code>方法并不会像其他方法一样覆盖原类的<code>load</code>方法，而是在原类<code>load</code>方法执行后执行</li>
-<li>例子A：假设分类B+C是子类B的分类，分类含有<code>load</code>方法。而子类B是父类A的子类，在<code>AppDelegate.m</code>中创建一个子类B对象，则load方法调用顺序如下：<ol>
+<li>例子A：假设分类B+C是子类B的分类，分类含有<code>load</code>方法。而子类B是父类A的子类，在<code>AppDelegate.m</code>中创建一个子类B对象，则<code>load</code>方法调用顺序如下：<ol>
 <li>调用父类A的<code>load</code>方法</li>
 <li>调用子类B的<code>load</code>方法</li>
 <li>调用分类B+C的<code>load</code>方法</li>
@@ -435,7 +435,7 @@
 <li><p>在运行时中，涉及<code>initialize</code>的方法，大概调用过程如下图</p>
   <img src="/2017/01/17/Load-And-Initialization-Methods/initialize.png" alt="Initialize Photo" title="Initialize Photo">
 </li>
-<li><p><code>initialize</code>方法在程序中的调用时间段：第一次主动调用当前类时，即<code>initialize</code>方法永远是类收到的第一个消息。注意，上文提及的load方法因为是通过函数指针调用，并不是走消息发送的途径，所以尽管<code>load</code>方法在<code>initialize</code>方法调用前调用，但<code>load</code>方法依然不能称作第一个消息</p>
+<li><p><code>initialize</code>方法在程序中的调用时间段：第一次主动调用当前类时，即<code>initialize</code>方法永远是类收到的第一个消息。注意，上文提及的<code>load</code>方法因为是通过函数指针调用，并不是走消息发送的途径，所以尽管<code>load</code>方法在<code>initialize</code>方法调用前调用，但<code>load</code>方法依然不能称作第一个消息</p>
 </li>
 <li><p><code>initialize</code>方法在线程安全的环境中执行，即只有执行<code>initialize</code>的那个线程可以操作类/类实例，其他线程都会被阻塞，等待<code>initialize</code>方法执行完</p>
 </li>
